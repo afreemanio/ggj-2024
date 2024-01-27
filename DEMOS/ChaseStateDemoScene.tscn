@@ -24,8 +24,11 @@ move_on_path = NodePath("../../../PatrolPath/PathFollow2D")
 movement_speed = 1.0
 
 [node name="Player" parent="." instance=ExtResource("3_5ncme")]
-visible = false
 position = Vector2(104, 114)
+collision_layer = 2
+
+[node name="Laugh" parent="Player" index="3"]
+visible = false
 
 [node name="PatrolPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_mcju4")
@@ -39,3 +42,4 @@ position = Vector2(255, 128)
 
 [editable path="BlueGuard"]
 [editable path="BlueGuard/VisionCone2D"]
+[editable path="Player"]

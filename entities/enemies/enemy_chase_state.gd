@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func _enter_state() -> void:
+	print("ENTERING CHASE STATE")
 	set_physics_process(true)
 	animator.play("move")
 
@@ -29,6 +30,7 @@ func _physics_process(delta):
 		animator.scale.x = 1.0
 	# actor's position, mouse position relative to the actor (GLOBAL is relative to the global base)
 	var direction = Vector2.ZERO.direction_to(actor.get_local_mouse_position())
+	var test = actor.max_speed
 	actor.velocity = actor.velocity.move_toward(
 		direction * actor.max_speed, actor.acceleration * delta
 	)

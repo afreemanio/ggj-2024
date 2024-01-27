@@ -1,30 +1,30 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwpqy3drag0i0"]
 
-[ext_resource type="Texture2D" uid="uid://2j7rhmexu7al" path="res://icon.svg" id="1_j4ndt"]
 [ext_resource type="Script" path="res://player/Player.gd" id="1_onop1"]
+[ext_resource type="Texture2D" uid="uid://c84h5wdspud1c" path="res://placeholder/player.png" id="2_iju6d"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="4_fghkq"]
 [ext_resource type="PackedScene" uid="uid://dubnavv2auhld" path="res://laugh/laugh.tscn" id="4_lkqjn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxn2p"]
-size = Vector2(125, 125)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ufpdd"]
+radius = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_onop1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_j4ndt")
+texture = ExtResource("2_iju6d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-shape = SubResource("RectangleShape2D_bxn2p")
+shape = SubResource("CircleShape2D_ufpdd")
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_fghkq")
 priority_override = false
 priority = 0
-zoom = Vector2(1, 1)
+zoom = Vector2(2, 2)
 follow_mode = 2
 follow_target = NodePath("..")
 follow_parameters/target_offset = Vector2(0, 0)

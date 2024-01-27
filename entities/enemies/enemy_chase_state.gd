@@ -25,16 +25,21 @@ func _exit_state() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	animator.scale.x = -sign(actor.velocity.x)
-	if animator.scale.x == 0.0:
-		animator.scale.x = 1.0
+	# ! We want him to nav to the player's current location
+	# animator.scale.x = -sign(actor.velocity.x)
+	# if animator.scale.x == 0.0:
+	# 	animator.scale.x = 1.0
+
 	# actor's position, mouse position relative to the actor (GLOBAL is relative to the global base)
-	var direction = Vector2.ZERO.direction_to(actor.get_local_mouse_position())
-	var test = actor.max_speed
+	# var direction = Vector2.ZERO.direction_to(target.position)
+	# ! direction is direction between actor and player
+	var direction = actor.global_position.direction_to(actor.target.global_position)
 	actor.velocity = actor.velocity.move_toward(
 		direction * actor.max_speed, actor.acceleration * delta
 	)
 	actor.move_and_slide()
-	if vision_cast.is_colliding():
-		lost_player.emit()
+	actor.look_at(global_position + actor.velocity)
+	print("test")
+	#if vision_cast.is_colliding():
+		#lost_player.emit()
 	pass

@@ -4,7 +4,7 @@ class_name Player extends CharacterBody2D
 
 func _ready():
 	## TODO: Maybe can be removed
-	%PhantomCamera2D.set_follow_target_node(%CharacterBody2D)
+	# %PhantomCamera2D.set_follow_target_node(%CharacterBody2D)
 	%PhantomCamera2D.is_active()
 	
 func _physics_process(delta):

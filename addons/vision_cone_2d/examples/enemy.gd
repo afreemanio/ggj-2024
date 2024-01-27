@@ -16,6 +16,8 @@ extends CharacterBody2D
 @onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
 @onready var rot_start = rotation
 
+signal player_captured
+
 func _on_vision_cone_area_body_entered(body: Node2D) -> void:
 	# print("%s is seeing %s" % [self, body])
 	vision_renderer.color = alert_color
@@ -31,3 +33,8 @@ func _physics_process(delta: float) -> void:
 		move_on_path.progress += movement_speed
 		global_position = move_on_path.position
 		rotation = move_on_path.rotation
+
+
+
+
+

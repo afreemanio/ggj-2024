@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://buw8rp45vhegt"]
+[gd_scene load_steps=12 format=3 uid="uid://buw8rp45vhegt"]
 
 [ext_resource type="Script" path="res://entities/enemies/BlueGuard.gd" id="1_g77j2"]
 [ext_resource type="Texture2D" uid="uid://co7hu8h5emrdt" path="res://placeholder/guardsc.png" id="2_wwsd1"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://entities/enemies/enemy_follow_path_state.gd" id="6_5n7y7"]
 [ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="6_pn2wh"]
 [ext_resource type="Script" path="res://entities/enemies/enemy_captured_player_state.gd" id="7_ds8lg"]
-[ext_resource type="Script" path="res://entities/enemies/enemy_follow_noise_state.gd" id="8_fefo4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8vds"]
 animations = [{
@@ -38,6 +37,13 @@ radius = 21.0
 [node name="BlueGuard" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_g77j2")
+max_speed = null
+acceleration = null
+alert_color = null
+is_rotating = null
+rotation_speed = null
+rotation_angle = null
+path_movement_speed = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -83,14 +89,7 @@ actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 
-[node name="EnemyFollowNoiseState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
-script = ExtResource("8_fefo4")
-actor = NodePath("../..")
-animator = NodePath("../../AnimatedSprite2D")
-vision_cast = NodePath("../../RayCast2D")
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
-visible = false
 
 [node name="VisionCone2D" parent="." instance=ExtResource("6_pn2wh")]
 rotation = -1.5708

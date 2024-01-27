@@ -14,28 +14,41 @@ radius = 400.0
 [node name="Laugh" type="Node2D"]
 script = ExtResource("1_t21yr")
 
-[node name="DebugLabel" type="Label" parent="."]
+[node name="PercentDebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="TypeDebugLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -2.0
+offset_top = 24.0
+offset_right = 38.0
+offset_bottom = 47.0
+
 [node name="SmallLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmallLaughArea2D"]
 shape = SubResource("CircleShape2D_7lbj8")
-debug_color = Color(0, 1, 0, 0.419608)
+debug_color = Color(0, 1, 0, 0.196078)
 
 [node name="MediumLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MediumLaughArea2D"]
 shape = SubResource("CircleShape2D_uwix2")
-debug_color = Color(1, 0.8, 0, 0.470588)
+debug_color = Color(1, 0.8, 0, 0.196078)
 
 [node name="LargeLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LargeLaughArea2D"]
 shape = SubResource("CircleShape2D_07j1k")
-debug_color = Color(1, 0, 0.027451, 0.419608)
+debug_color = Color(1, 0, 0.027451, 0.196078)

@@ -14,10 +14,12 @@ class_name BlueGuard extends Enemy
 @onready var enemy_wander_state = $FiniteStateMachine/EnemyWanderState as EnemyWanderState
 @onready var enemy_chase_state = $FiniteStateMachine/EnemyChaseState as EnemyChaseState
 @onready var enemy_follow_path_state = $FiniteStateMachine/EnemyFollowPathState as EnemyFollowPathState
+@onready var enemy_follow_noise_state = $FiniteStateMachine/EnemyFollowNoiseState as EnemyFollowNoiseState
 @onready var enemy_captured_player_state = $FiniteStateMachine/EnemyCapturedPlayerState as EnemyCapturedPlayerState
 @onready var hitbox = $Hitbox
 @onready var vision_renderer = $VisionCone2D/VisionConeRenderer
 
+@onready var heard_sound_location_buffer: Vector2 = Vector2.ZERO
 
 
 
@@ -42,6 +44,7 @@ func _on_hitbox_body_entered(body):
 
 
 func _on_vision_cone_area_body_entered(body):
+	print("PLAYER SPOTTED")
 	vision_renderer.color = alert_color
 	if fsm.state != enemy_chase_state || fsm.state != enemy_captured_player_state:
 		fsm.change_state(enemy_chase_state)
@@ -53,4 +56,8 @@ func _on_vision_cone_area_body_exited(body):
 	vision_renderer.color = original_color
 	pass # Replace with function body.
 
+
+func alert_to_sound(sound_position: Vector2):
+	heard_sound_location_buffer = sound_position
+	fsm.change_state(enemy_follow_noise_state)
 

@@ -6,8 +6,10 @@ func _ready():
 	pass
 	
 func _physics_process(delta):
-	## Get player input and move in a direction
+	_update_movement()
+	move_and_slide()
+
+## Get player input and update the movement velocity vector
+func _update_movement():
 	var movement_direction : Vector2 = Input.get_vector("LEFT", "RIGHT", "UP", "DOWN")
 	velocity = movement_direction * speed
-	print(velocity)
-	move_and_slide()

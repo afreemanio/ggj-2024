@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://buw8rp45vhegt"]
+
+[ext_resource type="Script" path="res://entities/enemies/BlueGuard.gd" id="1_g77j2"]
+[ext_resource type="Texture2D" uid="uid://co7hu8h5emrdt" path="res://placeholder/guardsc.png" id="2_wwsd1"]
+[ext_resource type="Script" path="res://entities/FSM/finite_state_machine.gd" id="3_3gkd2"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_wander_state.gd" id="4_4wgtm"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_chase_state.gd" id="5_r7886"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_follow_path_state.gd" id="6_5n7y7"]
+[ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="6_pn2wh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8vds"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wwsd1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wwsd1")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kskxo"]
+radius = 16.0
+
+[node name="BlueGuard" type="CharacterBody2D"]
+script = ExtResource("1_g77j2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, -1.90735e-06)
+scale = Vector2(0.0466222, 0.0403194)
+sprite_frames = SubResource("SpriteFrames_s8vds")
+animation = &"move"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(0.0614887, 0.0504732)
+texture = ExtResource("2_wwsd1")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kskxo")
+
+[node name="FiniteStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("3_3gkd2")
+state = NodePath("EnemyFollowPathState")
+
+[node name="EnemyChaseState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+script = ExtResource("5_r7886")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
+
+[node name="EnemyWanderState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+script = ExtResource("4_4wgtm")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
+
+[node name="EnemyFollowPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "vision_renderer")]
+script = ExtResource("6_5n7y7")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
+vision_renderer = NodePath("../../VisionCone2D/VisionConeRenderer")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="VisionCone2D" parent="." instance=ExtResource("6_pn2wh")]
+rotation = -1.5708
+angle_deg = 40
+ray_count = 50
+max_distance = 100.0
+debug_lines = true
+debug_shape = true
+
+[editable path="VisionCone2D"]

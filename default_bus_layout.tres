@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://2y2054hkts0x"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d1otxlsut52pk"]
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_8rbld"]
 resource_name = "Compressor"

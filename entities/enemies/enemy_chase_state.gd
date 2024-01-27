@@ -3,6 +3,9 @@ class_name EnemyChaseState extends State
 @export var actor: Enemy
 @export var animator: AnimatedSprite2D
 @export var vision_cast: RayCast2D
+@export var max_speed_multiplier: float = 1.5
+@export var acceleration_multiplier: float = 20
+
 
 signal lost_player
 
@@ -14,12 +17,13 @@ func _ready() -> void:
 
 
 func _enter_state() -> void:
-	print("ENTERING CHASE STATE")
+	print("ENTER STATE CHASE")
 	set_physics_process(true)
 	animator.play("move")
 
 
 func _exit_state() -> void:
+	print("EXIT STATE CHASE")
 	set_physics_process(false)
 
 
@@ -35,11 +39,10 @@ func _physics_process(delta):
 	# ! direction is direction between actor and player
 	var direction = actor.global_position.direction_to(actor.target.global_position)
 	actor.velocity = actor.velocity.move_toward(
-		direction * actor.max_speed, actor.acceleration * delta
+		direction * actor.max_speed * max_speed_multiplier, actor.acceleration * delta * acceleration_multiplier
 	)
 	actor.move_and_slide()
 	actor.look_at(global_position + actor.velocity)
-	print("test")
 	#if vision_cast.is_colliding():
 		#lost_player.emit()
 	pass

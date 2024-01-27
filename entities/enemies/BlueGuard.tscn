@@ -70,19 +70,17 @@ actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 
-[node name="EnemyFollowPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "vision_renderer")]
+[node name="EnemyFollowPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
 script = ExtResource("6_5n7y7")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
-vision_renderer = NodePath("../../VisionCone2D/VisionConeRenderer")
 
-[node name="EnemyCapturedPlayerState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "vision_renderer")]
+[node name="EnemyCapturedPlayerState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
 script = ExtResource("7_ds8lg")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
-vision_renderer = NodePath("../../VisionCone2D/VisionConeRenderer")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 

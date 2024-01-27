@@ -17,10 +17,10 @@ position = Vector2(-13, -56)
 
 [node name="BlueGuard" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("2_tysaj")]
 position = Vector2(448, 120)
+max_speed = 100.0
 acceleration = 5000.0
 target = NodePath("../Player")
 move_on_path = NodePath("../PatrolPath/PathFollow2D")
-movement_speed = 5.0
 
 [node name="Player" parent="." instance=ExtResource("3_5ncme")]
 position = Vector2(104, 114)

@@ -30,6 +30,6 @@ func _physics_process(delta):
 	if collision:
 		var bounce_velocity = actor.velocity.bounce(collision.get_normal())
 		actor.velocity = bounce_velocity
-	if  not vision_cast.is_colliding():
+	if not vision_cast.is_colliding():
 		found_player.emit()
 

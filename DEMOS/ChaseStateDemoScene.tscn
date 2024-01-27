@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxn3bh1a5a8k6"]
+[gd_scene load_steps=5 format=3 uid="uid://dxn3bh1a5a8k6"]
 
 [ext_resource type="PackedScene" uid="uid://xx8vanqh48he" path="res://tilemaps/floor_tile_map.tscn" id="1_ympuf"]
 [ext_resource type="PackedScene" uid="uid://buw8rp45vhegt" path="res://entities/enemies/BlueGuard.tscn" id="2_tysaj"]
 [ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="3_5ncme"]
+
+[sub_resource type="Curve2D" id="Curve2D_mcju4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 444, 123, 0, 0, 0, 0, 289, 103, 0, 0, 0, 0, 259, -3, 0, 0, 0, 0, 261, 218, 0, 0, 0, 0, 210, 118, 0, 0, 0, 0, 445, 124)
+}
+point_count = 6
 
 [node name="ChaseStateDemoScene" type="Node2D"]
 
@@ -12,5 +18,24 @@ position = Vector2(-13, -56)
 [node name="BlueGuard" parent="." instance=ExtResource("2_tysaj")]
 position = Vector2(448, 120)
 
+[node name="EnemyFollowPathState" parent="BlueGuard/FiniteStateMachine" index="2" node_paths=PackedStringArray("move_on_path")]
+is_rotating = true
+move_on_path = NodePath("../../../PatrolPath/PathFollow2D")
+movement_speed = 1.0
+
 [node name="Player" parent="." instance=ExtResource("3_5ncme")]
+visible = false
 position = Vector2(104, 114)
+
+[node name="PatrolPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mcju4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PatrolPath"]
+position = Vector2(444, 123)
+rotation = -3.01327
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(255, 128)
+
+[editable path="BlueGuard"]
+[editable path="BlueGuard/VisionCone2D"]

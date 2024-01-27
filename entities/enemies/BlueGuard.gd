@@ -9,6 +9,7 @@ class_name BlueGuard extends Enemy
 @onready var fsm = $FiniteStateMachine as FiniteStateMachine
 @onready var enemy_wander_state = $FiniteStateMachine/EnemyWanderState as EnemyWanderState
 @onready var enemy_chase_state = $FiniteStateMachine/EnemyChaseState as EnemyChaseState
+@onready var enemy_follow_path_state = $FiniteStateMachine/EnemyFollowPathState as EnemyFollowPathState
 
 func _ready():
 	# connect the enemy wander state found player signal to the

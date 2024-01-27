@@ -87,6 +87,6 @@ func laugh() -> void:
 	
 	# Call the alert function on any guard caught in the radius
 	for body in overlapping_bodies_array:
-		if body.is_in_group("Guard"):
+		if body is PlaceholderEnemy:
 			print("AAAAA")
 			body.alert()

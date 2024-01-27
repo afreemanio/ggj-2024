@@ -17,9 +17,19 @@ func _ready():
 	# "when the enemy finds the player, change to the chase state"
 	enemy_wander_state.found_player.connect(fsm.change_state.bind(enemy_chase_state))
 	enemy_chase_state.lost_player.connect(fsm.change_state.bind(enemy_wander_state))
+	enemy_follow_path_state.found_player.connect(fsm.change_state.bind(enemy_chase_state))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	ray_cast_2d.target_position = get_local_mouse_position()
 	pass
 
+
+
+func _on_vision_cone_area_body_entered(body: Node2D) -> void:
+	pass
+	# print("%s is seeing %s" % [self, body])
+
+func _on_vision_cone_area_body_exited(body: Node2D) -> void:
+	pass
+	# print("%s stopped seeing %s" % [self, body])

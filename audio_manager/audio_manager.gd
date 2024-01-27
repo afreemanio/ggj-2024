@@ -23,6 +23,7 @@ var sfx_players_queue : Array = []
 var sfx_players_available : Array = []
 
 func _ready() -> void:
+	return
 	# Init SFX players
 	for player in SFX_PLAYER_COUNT:
 		var new_player : AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -81,9 +82,11 @@ func play_music_dual(music_primary : String, music_secondary : String) -> void:
 func filter_music_primary_focus(enable : bool) -> void:
 	var music_tween : Tween = create_tween()
 	if enable:
-		music_tween.tween_property(music_player_secondary, "volume_db", MUSIC_PLAYER_SECONDARY_FADE_DB, 0.5).from(0.0)
+		pass
+		 #music_tween.tween_property(music_player_secondary, "volume_db", MUSIC_PLAYER_SECONDARY_FADE_DB, 0.5).from(0.0)
 	else:
-		music_tween.tween_property(music_player_secondary, "volume_db", 0.0, 0.5).from(MUSIC_PLAYER_SECONDARY_FADE_DB)
+		pass
+		# music_tween.tween_dproperty(music_player_secondary, "volume_db", 0.0, 0.5).from(MUSIC_PLAYER_SECONDARY_FADE_DB)
 	
 func filter_music_lowpass(enable : bool) -> void:
 	var index : int = AudioServer.get_bus_index(MUSIC_BUS_NAME)

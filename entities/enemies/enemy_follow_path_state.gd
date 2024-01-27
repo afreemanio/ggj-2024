@@ -34,8 +34,8 @@ func _enter_state() -> void:
 	print("ENTER STATE PATH FOLLOW")
 	set_physics_process(true)
 	# animator.play("move")
-	if actor.velocity == Vector2.ZERO:
-		actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
+	# if actor.velocity == Vector2.ZERO:
+	# 	actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
 
 
 func _exit_state() -> void:
@@ -52,30 +52,25 @@ func _exit_state() -> void:
 		#found_player.emit()
 
 
-func _on_vision_cone_area_body_entered(body: Node2D) -> void:
-	# print("%s is seeing %s" % [self, body])
-	vision_renderer.color = alert_color
 
-func _on_vision_cone_area_body_exited(body: Node2D) -> void:
-	# print("%s stopped seeing %s" % [self, body])
-	vision_renderer.color = original_color
 
 func _physics_process(delta: float) -> void:
 	if is_rotating:
 		rotation = rot_start + sin(Time.get_ticks_msec()/1000. * rotation_speed) * deg_to_rad(rotation_angle/2.)
 	if move_on_path:
 		move_on_path.progress += movement_speed
-		print("my move on path position is:")
-		print(move_on_path.position)
 		actor.global_position = move_on_path.position
 		actor.rotation = move_on_path.rotation
 
 
 
+func _on_vision_cone_area_body_entered(body):
+	vision_renderer.color = alert_color
+	print("FOUND PLAYER")
+	# found_player.emit()
+	pass # Replace with function body.
 
 
-
-
-
-
-
+func _on_vision_cone_area_body_exited(body):
+	vision_renderer.color = original_color
+	pass # Replace with function body.

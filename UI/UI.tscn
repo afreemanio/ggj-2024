@@ -1,0 +1,377 @@
+[gd_scene load_steps=25 format=3 uid="uid://dcmpcb7e7fjqx"]
+
+[ext_resource type="Script" path="res://title_screen/titlescreen.gd" id="1_brhbp"]
+[ext_resource type="Texture2D" uid="uid://qwo1mgn2toss" path="res://title_screen/logo.png" id="2_bt82b"]
+[ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="3_578ll"]
+[ext_resource type="Texture2D" uid="uid://cwsnnnmx7xvvu" path="res://title_screen/start.png" id="4_p06vx"]
+[ext_resource type="Texture2D" uid="uid://dmi2swn5hdi2r" path="res://title_screen/options.png" id="5_7c7r3"]
+[ext_resource type="Texture2D" uid="uid://cjryoqdsxsh83" path="res://title_screen/credits.png" id="6_ygfle"]
+[ext_resource type="Texture2D" uid="uid://cq2tl0psokjdq" path="res://title_screen/night_bg.png" id="7_2cvqi"]
+[ext_resource type="Script" path="res://options/options.gd" id="8_qw761"]
+[ext_resource type="Texture2D" uid="uid://2qgebetq8rfo" path="res://options/sfx.png" id="9_krthh"]
+[ext_resource type="Texture2D" uid="uid://q1wospv2cmg6" path="res://options/slider_test.png" id="10_63ogr"]
+[ext_resource type="Texture2D" uid="uid://dk735n57n0l4f" path="res://options/selector.png" id="11_4vaa4"]
+[ext_resource type="Texture2D" uid="uid://e1gvone7nr6w" path="res://options/music.png" id="12_1q6ah"]
+[ext_resource type="Texture2D" uid="uid://mwya3d17tlil" path="res://options/return.png" id="13_us4fc"]
+[ext_resource type="Texture2D" uid="uid://330a1aa4ge0s" path="res://title_screen/day_bg.png" id="14_2vrh2"]
+[ext_resource type="PackedScene" uid="uid://d22rwjtlcwj5c" path="res://credits/credits.tscn" id="15_rmv4q"]
+[ext_resource type="Script" path="res://transition/transition.gd" id="16_qdrfr"]
+[ext_resource type="Shader" path="res://transition/transition.gdshader" id="17_f0gme"]
+
+[sub_resource type="Animation" id="Animation_eycnw"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TitleScreen/VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(80, 10), Vector2(80, -10), Vector2(80, 10), Vector2(80, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TitleScreen/MenuBG:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_vr8ao"]
+resource_name = "enter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TitleScreen/VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, -0.5),
+"update": 0,
+"values": [Vector2(-650, 0), Vector2(100, 0), Vector2(-2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmfyx"]
+_data = {
+"bob": SubResource("Animation_eycnw"),
+"enter": SubResource("Animation_vr8ao")
+}
+
+[sub_resource type="Theme" id="Theme_18tx6"]
+
+[sub_resource type="Animation" id="Animation_3kir0"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(77, -10), Vector2(77, 10), Vector2(77, -10), Vector2(77, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuBG:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76aha"]
+_data = {
+"bob": SubResource("Animation_3kir0")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sdpn"]
+shader = ExtResource("17_f0gme")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="TitleScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_brhbp")
+transition = null
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -170.0
+offset_right = 364.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+alignment = 1
+
+[node name="MarginContainerTitle" type="MarginContainer" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Title" type="TextureRect" parent="TitleScreen/VBoxContainer/MarginContainerTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_bt82b")
+stretch_mode = 2
+
+[node name="HS" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_578ll")
+text = "HIGH SCORE:"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainerStart" type="MarginContainer" parent="TitleScreen/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Start" type="TextureRect" parent="TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart"]
+layout_mode = 2
+texture = ExtResource("4_p06vx")
+stretch_mode = 2
+
+[node name="MarginContainerStart2" type="MarginContainer" parent="TitleScreen/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Options" type="TextureRect" parent="TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2"]
+layout_mode = 2
+texture = ExtResource("5_7c7r3")
+
+[node name="Credits" type="TextureRect" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_ygfle")
+stretch_mode = 2
+
+[node name="MenuBG" type="Sprite2D" parent="TitleScreen"]
+z_index = -2
+position = Vector2(320, 179)
+scale = Vector2(1.025, 1.025)
+texture = ExtResource("7_2cvqi")
+offset = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen"]
+reset_on_save = false
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_fmfyx")
+}
+autoplay = "bob"
+
+[node name="Options" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_qw761")
+transition = null
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.0
+offset_top = -190.0
+offset_right = 243.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsMargin" type="MarginContainer" parent="Options/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Options" type="TextureRect" parent="Options/VBoxContainer/OptionsMargin"]
+layout_mode = 2
+texture = ExtResource("5_7c7r3")
+stretch_mode = 3
+
+[node name="SliderGrid" type="GridContainer" parent="Options/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="SFX" type="TextureRect" parent="Options/VBoxContainer/SliderGrid"]
+layout_mode = 2
+texture = ExtResource("9_krthh")
+stretch_mode = 3
+
+[node name="SFXSlider" type="MarginContainer" parent="Options/VBoxContainer/SliderGrid"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+
+[node name="TextureRect" type="TextureRect" parent="Options/VBoxContainer/SliderGrid/SFXSlider"]
+layout_mode = 2
+texture = ExtResource("10_63ogr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Options/VBoxContainer/SliderGrid/SFXSlider/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="SFXSlider" type="HSlider" parent="Options/VBoxContainer/SliderGrid/SFXSlider/TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = SubResource("Theme_18tx6")
+theme_override_icons/grabber = ExtResource("11_4vaa4")
+theme_override_icons/grabber_highlight = ExtResource("11_4vaa4")
+theme_override_icons/grabber_disabled = ExtResource("11_4vaa4")
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="Music" type="TextureRect" parent="Options/VBoxContainer/SliderGrid"]
+layout_mode = 2
+texture = ExtResource("12_1q6ah")
+stretch_mode = 3
+
+[node name="MusicSlider" type="MarginContainer" parent="Options/VBoxContainer/SliderGrid"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+
+[node name="TextureRect" type="TextureRect" parent="Options/VBoxContainer/SliderGrid/MusicSlider"]
+layout_mode = 2
+texture = ExtResource("10_63ogr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Options/VBoxContainer/SliderGrid/MusicSlider/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="MusicSlider" type="HSlider" parent="Options/VBoxContainer/SliderGrid/MusicSlider/TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = SubResource("Theme_18tx6")
+theme_override_icons/grabber = ExtResource("11_4vaa4")
+theme_override_icons/grabber_highlight = ExtResource("11_4vaa4")
+theme_override_icons/grabber_disabled = ExtResource("11_4vaa4")
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="ReturnMargin" type="MarginContainer" parent="Options/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Return" type="TextureRect" parent="Options/VBoxContainer/ReturnMargin"]
+layout_mode = 2
+texture = ExtResource("13_us4fc")
+stretch_mode = 3
+
+[node name="MenuBG" type="Sprite2D" parent="Options"]
+z_index = -2
+position = Vector2(320, 180)
+scale = Vector2(1.025, 1.025)
+texture = ExtResource("14_2vrh2")
+offset = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Options"]
+libraries = {
+"": SubResource("AnimationLibrary_76aha")
+}
+autoplay = "bob"
+
+[node name="Credits" parent="." node_paths=PackedStringArray("transition") instance=ExtResource("15_rmv4q")]
+transition = NodePath("../Transition")
+
+[node name="Transition" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_qdrfr")
+
+[node name="ColorRect" type="ColorRect" parent="Transition"]
+material = SubResource("ShaderMaterial_3sdpn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0941176, 0.0784314, 0.145098, 1)
+
+[connection signal="gui_input" from="TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart/Start" to="TitleScreen" method="_on_start_gui_input"]
+[connection signal="gui_input" from="TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2/Options" to="TitleScreen" method="_on_options_gui_input"]
+[connection signal="gui_input" from="TitleScreen/VBoxContainer/Credits" to="TitleScreen" method="_on_credits_gui_input"]
+[connection signal="gui_input" from="Options/VBoxContainer/OptionsMargin/Options" to="Options" method="_on_options_gui_input"]
+[connection signal="value_changed" from="Options/VBoxContainer/SliderGrid/SFXSlider/TextureRect/MarginContainer/SFXSlider" to="Options" method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Options/VBoxContainer/SliderGrid/MusicSlider/TextureRect/MarginContainer/MusicSlider" to="Options" method="_on_music_slider_value_changed"]
+[connection signal="gui_input" from="Options/VBoxContainer/ReturnMargin/Return" to="Options" method="_on_return_gui_input"]

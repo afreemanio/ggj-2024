@@ -1,0 +1,137 @@
+[gd_scene load_steps=7 format=3 uid="uid://d22rwjtlcwj5c"]
+
+[ext_resource type="Script" path="res://credits/credits.gd" id="1_pqlbu"]
+[ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="2_wsh8f"]
+[ext_resource type="Texture2D" uid="uid://mwya3d17tlil" path="res://options/return.png" id="3_t2wf5"]
+[ext_resource type="Texture2D" uid="uid://cq2tl0psokjdq" path="res://title_screen/night_bg.png" id="4_jx6n2"]
+
+[sub_resource type="Animation" id="Animation_vewvj"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(0, 30), Vector2(0, 10), Vector2(0, 30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CreditsBG:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_68bws"]
+_data = {
+"bob": SubResource("Animation_vewvj")
+}
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 7.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pqlbu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="Credits" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wsh8f")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 33
+text = "Andrew Freeman: Programming
+Lane McMartin:
+Programming"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 23
+
+[node name="MainTheme" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wsh8f")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "Wolfgang_
+Main Theme
+(\"Bonus Round\")"
+horizontal_alignment = 1
+
+[node name="MenuTheme" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wsh8f")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "congusbongus
+Menu Theme
+(\"Two Left Socks\")"
+horizontal_alignment = 1
+
+[node name="Shader" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_wsh8f")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "mackatap,
+DDRKirbyISQ, MatiasVME
+Transition Shader"
+horizontal_alignment = 1
+
+[node name="Return" type="TextureRect" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_t2wf5")
+stretch_mode = 3
+
+[node name="CreditsBG" type="Sprite2D" parent="."]
+visible = false
+z_index = -2
+position = Vector2(320, 182)
+scale = Vector2(1.025, 1.03333)
+texture = ExtResource("4_jx6n2")
+offset = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_68bws")
+}
+autoplay = "bob"
+
+[connection signal="gui_input" from="VBoxContainer/Return" to="." method="_on_return_gui_input"]

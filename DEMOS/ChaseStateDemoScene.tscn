@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxn3bh1a5a8k6"]
+
+[ext_resource type="PackedScene" uid="uid://xx8vanqh48he" path="res://tilemaps/floor_tile_map.tscn" id="1_ympuf"]
+[ext_resource type="PackedScene" uid="uid://buw8rp45vhegt" path="res://entities/enemies/BlueGuard.tscn" id="2_tysaj"]
+[ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="3_5ncme"]
+
+[node name="ChaseStateDemoScene" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_ympuf")]
+position = Vector2(-13, -56)
+
+[node name="BlueGuard" parent="." instance=ExtResource("2_tysaj")]
+position = Vector2(448, 120)
+
+[node name="Player" parent="." instance=ExtResource("3_5ncme")]
+position = Vector2(104, 114)

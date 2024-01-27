@@ -8,6 +8,6 @@ class_name Enemy extends CharacterBody2D
 
 @export_group("Movement")
 @export var move_on_path: PathFollow2D
-@export var movement_speed = 0.1
+@export var path_movement_speed = 0.1
 
 

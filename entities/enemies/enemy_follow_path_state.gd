@@ -6,8 +6,8 @@ class_name EnemyFollowPathState extends State
 @export var vision_cast: RayCast2D
 
 signal found_player
-@export var vision_renderer: Polygon2D
-@export var alert_color: Color
+# @export var vision_renderer: Polygon2D
+# @export var alert_color: Color
 
 # @export_group("Rotation")
 # @export var is_rotating = false
@@ -19,7 +19,6 @@ signal found_player
 # @export var movement_speed = 0.1
 @onready var pos_start = position.x
 
-@onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
 @onready var rot_start = rotation
 
 
@@ -39,6 +38,7 @@ func _enter_state() -> void:
 
 
 func _exit_state() -> void:
+	print("EXIT STATE PATH FOLLOW")
 	set_physics_process(false)
 
 #func _physics_process(delta):
@@ -61,19 +61,9 @@ func _physics_process(delta: float) -> void:
 		# print("MOVING ON PATH")
 		# print("GOING TO:")
 		# print(actor.move_on_path.position)
-		actor.move_on_path.progress += actor.movement_speed
+		actor.move_on_path.progress += actor.path_movement_speed
 		actor.global_position = actor.move_on_path.position
 		actor.rotation = actor.move_on_path.rotation
 
 
 
-func _on_vision_cone_area_body_entered(body):
-	vision_renderer.color = alert_color
-	print("FOUND PLAYER")
-	found_player.emit()
-	pass # Replace with function body.
-
-
-func _on_vision_cone_area_body_exited(body):
-	vision_renderer.color = original_color
-	pass # Replace with function body.

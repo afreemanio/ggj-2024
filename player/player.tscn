@@ -1,14 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6ba3h2njrbu6"]
+[gd_scene load_steps=6 format=3 uid="uid://b6ba3h2njrbu6"]
 
 [ext_resource type="Script" path="res://player/CharacterBody2D.gd" id="1_b4f7i"]
 [ext_resource type="Texture2D" uid="uid://2j7rhmexu7al" path="res://icon.svg" id="1_j4ndt"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="4_fghkq"]
+
+[sub_resource type="GDScript" id="GDScript_etpv2"]
+script/source = "class_name Player extends Node2D
+
+func _ready():
+	%PhantomCamera2D.set_follow_target_node(%CharacterBody2D)
+	%PhantomCamera2D.is_active()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxn2p"]
 size = Vector2(125, 125)
 
 [node name="Player" type="Node2D"]
+script = SubResource("GDScript_etpv2")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
 motion_mode = 1
 script = ExtResource("1_b4f7i")
 
@@ -18,3 +29,27 @@ texture = ExtResource("1_j4ndt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_bxn2p")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_fghkq")
+priority_override = false
+priority = 0
+zoom = Vector2(1, 1)
+follow_mode = 2
+follow_target = NodePath("../CharacterBody2D")
+follow_parameters/target_offset = Vector2(0, 0)
+follow_parameters/damping = true
+follow_parameters/damping_value = 10.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0

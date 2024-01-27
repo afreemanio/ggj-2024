@@ -1,7 +1,7 @@
 class_name Laugh extends Node2D
 
 ## This class is responsible for controlling the laugh mechanic.
-## 
+##
 ## The current "percentage" of the laugh is accessible.
 ## The speed at which the laugh bar will increment is accessible.
 ## The laugh bar can be decremented by calling a function.
@@ -44,9 +44,25 @@ const LAUGH_THRESHOLD_LARGE : float = 75.0
 func _ready():
 	pass
 
+
+func calculate_laugh_type(laugh_percentage):
+	if laugh_percentage == MAX_PERCENT:
+		return "MAX"
+	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
+		return "LARGE"
+	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
+		return "MEDIUM"
+	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
+		return "SMALL"
+	else:
+		return "NONE"
+
+
+
 ## Execute once per physics step (set period of time)
 func _physics_process(delta: float) -> void:
-	%DebugLabel.text = str(laugh_percentage)
+	%PercentDebugLabel.text = str(laugh_percentage)
+	%TypeDebugLabel.text = calculate_laugh_type(laugh_percentage)
 	# If the laugh is enabled, increment the bar by our set time
 	if laugh_active:
 		laugh_percentage += ((MAX_PERCENT / laugh_increment_time) * delta)
@@ -61,6 +77,7 @@ func laugh() -> void:
 	# whatever was caught in the scan.
 	var overlapping_bodies_array : Array
 	if laugh_percentage == MAX_PERCENT:
+		print("Max Laugh")
 		print("God Damn!")
 		print(overlapping_bodies_array)
 		pass
@@ -87,9 +104,11 @@ func laugh() -> void:
 	
 	# Call the alert function on any guard caught in the radius
 	for body in overlapping_bodies_array:
-		if body is PlaceholderEnemy:
+		# if body is PlaceholderEnemy:
+		if body is Enemy:
 			print("AAAAA")
-			body.alert()
+			# Alerts to sound at player position
+			body.alert_to_sound(global_position)
 			
 	# TODO: Remove placehodler sound
 	AudioManager.play_sfx("res://placeholder/sound.wav")

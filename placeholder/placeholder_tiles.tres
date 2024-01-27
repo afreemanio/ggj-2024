@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://c6po1kvopk8ur"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://c6po1kvopk8ur"]
 
 [ext_resource type="Texture2D" uid="uid://wkvac4nv8m0w" path="res://placeholder/tileset.png" id="1_87voi"]
 [ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="2_cfweh"]
 [ext_resource type="PackedScene" uid="uid://f7oq4665qsl7" path="res://placeholder/enemy_placeholder.tscn" id="3_0rd8t"]
+[ext_resource type="PackedScene" uid="uid://4r5eu24erh24" path="res://placeholder/goal.tscn" id="4_yuyu8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lp3c3"]
 resource_name = "TilesetPlaceholder"
@@ -33,6 +34,7 @@ texture_region_size = Vector2i(32, 32)
 resource_name = "Entities"
 scenes/1/scene = ExtResource("2_cfweh")
 scenes/2/scene = ExtResource("3_0rd8t")
+scenes/3/scene = ExtResource("4_yuyu8")
 
 [resource]
 tile_size = Vector2i(32, 32)

@@ -14,6 +14,7 @@ func unload_current_level_instance() -> void:
 	if is_instance_valid(current_level_instance):
 		current_level_instance.queue_free()
 	current_level_instance = null
+	await %TransitionEffect.fade_black()
 
 ## Load the desired level
 func load_level(level_number : int) -> void:
@@ -24,3 +25,5 @@ func load_level(level_number : int) -> void:
 	if level_resource:
 		current_level_instance = level_resource.instantiate()
 		add_child(current_level_instance)
+		await %TransitionEffect.unfade_black()
+	

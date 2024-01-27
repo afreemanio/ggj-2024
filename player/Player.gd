@@ -1,11 +1,16 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 @export var speed : int = 300
 
 func _ready():
-	pass
+	## TODO: Maybe can be removed
+	%PhantomCamera2D.set_follow_target_node(%CharacterBody2D)
+	%PhantomCamera2D.is_active()
 	
 func _physics_process(delta):
+	if Input.is_action_just_pressed("SPACE"):
+		%Laugh.laugh()
+	
 	_update_movement()
 	move_and_slide()
 

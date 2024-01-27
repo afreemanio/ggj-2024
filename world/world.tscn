@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdp4frkjdtq0x"]
+[gd_scene load_steps=5 format=3 uid="uid://bdp4frkjdtq0x"]
 
-[ext_resource type="PackedScene" uid="uid://b6ba3h2njrbu6" path="res://player/player.tscn" id="1_81b3m"]
+[ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="1_81b3m"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_icb2l"]
 [ext_resource type="Texture2D" uid="uid://2j7rhmexu7al" path="res://icon.svg" id="3_14qhn"]
 
-[node name="World" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkv3k"]
+size = Vector2(125, 125)
 
-[node name="Player" parent="." instance=ExtResource("1_81b3m")]
+[node name="World" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -17,3 +18,10 @@ script = ExtResource("2_icb2l")
 modulate = Color(1, 1, 0.227451, 1)
 position = Vector2(238, 132)
 texture = ExtResource("3_14qhn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_qkv3k")
+
+[node name="Player" parent="." instance=ExtResource("1_81b3m")]

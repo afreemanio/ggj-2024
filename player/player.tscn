@@ -1,32 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6ba3h2njrbu6"]
+[gd_scene load_steps=6 format=3 uid="uid://bwpqy3drag0i0"]
 
-[ext_resource type="Script" path="res://player/CharacterBody2D.gd" id="1_b4f7i"]
 [ext_resource type="Texture2D" uid="uid://2j7rhmexu7al" path="res://icon.svg" id="1_j4ndt"]
+[ext_resource type="Script" path="res://player/Player.gd" id="1_onop1"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="4_fghkq"]
-
-[sub_resource type="GDScript" id="GDScript_etpv2"]
-script/source = "class_name Player extends Node2D
-
-func _ready():
-	%PhantomCamera2D.set_follow_target_node(%CharacterBody2D)
-	%PhantomCamera2D.is_active()
-"
+[ext_resource type="PackedScene" uid="uid://dubnavv2auhld" path="res://laugh/laugh.tscn" id="4_lkqjn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxn2p"]
 size = Vector2(125, 125)
 
-[node name="Player" type="Node2D"]
-script = SubResource("GDScript_etpv2")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-unique_name_in_owner = true
+[node name="Player" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_b4f7i")
+script = ExtResource("1_onop1")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_j4ndt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_bxn2p")
 
@@ -37,7 +26,7 @@ priority_override = false
 priority = 0
 zoom = Vector2(1, 1)
 follow_mode = 2
-follow_target = NodePath("../CharacterBody2D")
+follow_target = NodePath("..")
 follow_parameters/target_offset = Vector2(0, 0)
 follow_parameters/damping = true
 follow_parameters/damping_value = 10.0
@@ -53,3 +42,8 @@ limit/smoothed = false
 tween_parameters = null
 tween_on_load = true
 inactive_update_mode = 0
+
+[node name="Laugh" parent="." instance=ExtResource("4_lkqjn")]
+unique_name_in_owner = true
+laugh_increment_time = 10.0
+laugh_active = true

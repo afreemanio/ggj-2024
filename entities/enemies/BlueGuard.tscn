@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://buw8rp45vhegt"]
+[gd_scene load_steps=12 format=3 uid="uid://buw8rp45vhegt"]
 
 [ext_resource type="Script" path="res://entities/enemies/BlueGuard.gd" id="1_g77j2"]
 [ext_resource type="Texture2D" uid="uid://co7hu8h5emrdt" path="res://placeholder/guardsc.png" id="2_wwsd1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://entities/enemies/enemy_chase_state.gd" id="5_r7886"]
 [ext_resource type="Script" path="res://entities/enemies/enemy_follow_path_state.gd" id="6_5n7y7"]
 [ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="6_pn2wh"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_captured_player_state.gd" id="7_ds8lg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8vds"]
 animations = [{
@@ -30,6 +31,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_kskxo"]
 radius = 16.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_doqb8"]
+radius = 21.0
+
 [node name="BlueGuard" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_g77j2")
@@ -47,7 +51,7 @@ scale = Vector2(0.0614887, 0.0504732)
 texture = ExtResource("2_wwsd1")
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Wallbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kskxo")
 
 [node name="FiniteStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("state")]
@@ -73,6 +77,13 @@ animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 vision_renderer = NodePath("../../VisionCone2D/VisionConeRenderer")
 
+[node name="EnemyCapturedPlayerState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "vision_renderer")]
+script = ExtResource("7_ds8lg")
+actor = NodePath("../..")
+animator = NodePath("../../AnimatedSprite2D")
+vision_cast = NodePath("../../RayCast2D")
+vision_renderer = NodePath("../../VisionCone2D/VisionConeRenderer")
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
 [node name="VisionCone2D" parent="." instance=ExtResource("6_pn2wh")]
@@ -86,9 +97,17 @@ debug_shape = true
 [node name="VisionConeArea" parent="VisionCone2D" index="1"]
 collision_mask = 2
 
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HitboxArea" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_doqb8")
+
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="FiniteStateMachine/EnemyFollowPathState" method="_on_vision_cone_area_body_entered"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_exited"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="FiniteStateMachine/EnemyFollowPathState" method="_on_vision_cone_area_body_exited"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 
 [editable path="VisionCone2D"]

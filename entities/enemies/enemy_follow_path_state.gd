@@ -9,14 +9,14 @@ signal found_player
 @export var vision_renderer: Polygon2D
 @export var alert_color: Color
 
-@export_group("Rotation")
-@export var is_rotating = false
-@export var rotation_speed = 0.1
-@export var rotation_angle = 90
+# @export_group("Rotation")
+# @export var is_rotating = false
+# @export var rotation_speed = 0.1
+# @export var rotation_angle = 90
 
-@export_group("Movement")
-@export var move_on_path: PathFollow2D
-@export var movement_speed = 0.1
+# @export_group("Movement")
+# @export var move_on_path: PathFollow2D
+# @export var movement_speed = 0.1
 @onready var pos_start = position.x
 
 @onready var original_color = vision_renderer.color if vision_renderer else Color.WHITE
@@ -55,19 +55,22 @@ func _exit_state() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_rotating:
-		rotation = rot_start + sin(Time.get_ticks_msec()/1000. * rotation_speed) * deg_to_rad(rotation_angle/2.)
-	if move_on_path:
-		move_on_path.progress += movement_speed
-		actor.global_position = move_on_path.position
-		actor.rotation = move_on_path.rotation
+	if actor.is_rotating:
+		actor.rotation = actor.rot_start + sin(Time.get_ticks_msec()/1000. * actor.rotation_speed) * deg_to_rad(actor.rotation_angle/2.)
+	if actor.move_on_path:
+		# print("MOVING ON PATH")
+		# print("GOING TO:")
+		# print(actor.move_on_path.position)
+		actor.move_on_path.progress += actor.movement_speed
+		actor.global_position = actor.move_on_path.position
+		actor.rotation = actor.move_on_path.rotation
 
 
 
 func _on_vision_cone_area_body_entered(body):
 	vision_renderer.color = alert_color
 	print("FOUND PLAYER")
-	# found_player.emit()
+	found_player.emit()
 	pass # Replace with function body.
 
 

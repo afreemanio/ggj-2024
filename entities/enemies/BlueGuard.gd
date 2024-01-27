@@ -2,6 +2,8 @@ class_name BlueGuard extends Enemy
 
 @export var max_speed = 500.0
 # @export var acceleration = 50.0
+# @export var acceleration = 1000.0
+# @export var acceleration = 1000000.0 # basically instant movement
 @export var acceleration = 1000.0
 @onready var ray_cast_2d = $"RayCast2D"
 # temporary code to follow the mouse
@@ -10,6 +12,8 @@ class_name BlueGuard extends Enemy
 @onready var enemy_wander_state = $FiniteStateMachine/EnemyWanderState as EnemyWanderState
 @onready var enemy_chase_state = $FiniteStateMachine/EnemyChaseState as EnemyChaseState
 @onready var enemy_follow_path_state = $FiniteStateMachine/EnemyFollowPathState as EnemyFollowPathState
+@onready var enemy_captured_player_state = $FiniteStateMachine/EnemyCapturedPlayerState as EnemyCapturedPlayerState
+@onready var hitbox = $Hitbox
 
 func _ready():
 	# connect the enemy wander state found player signal to the
@@ -33,3 +37,9 @@ func _on_vision_cone_area_body_entered(body: Node2D) -> void:
 func _on_vision_cone_area_body_exited(body: Node2D) -> void:
 	pass
 	# print("%s stopped seeing %s" % [self, body])
+
+func _on_hitbox_body_entered(body):
+	print("PLAYER CAPTURED")
+	#fsm.change_state(enemy_captured_player_state)
+	pass # Replace with function body.
+

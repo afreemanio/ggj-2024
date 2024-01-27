@@ -90,3 +90,6 @@ func laugh() -> void:
 		if body is PlaceholderEnemy:
 			print("AAAAA")
 			body.alert()
+			
+	# TODO: Remove placehodler sound
+	AudioManager.play_sfx("res://placeholder/sound.wav")

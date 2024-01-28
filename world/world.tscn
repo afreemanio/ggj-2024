@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdp4frkjdtq0x"]
+[gd_scene load_steps=8 format=3 uid="uid://bdp4frkjdtq0x"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_e82nm"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_icb2l"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://waljleni3ptd" path="res://pause/pause.tscn" id="4_u6s6t"]
 [ext_resource type="PackedScene" uid="uid://mxkufx3ddsky" path="res://HUD/hud.tscn" id="5_g4mnh"]
 [ext_resource type="PackedScene" uid="uid://8316xq78hm52" path="res://title/title.tscn" id="6_kbo01"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="7_alo4q"]
 
 [node name="World" type="Node2D"]
 process_mode = 1
@@ -15,7 +16,6 @@ script = ExtResource("1_e82nm")
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(125.051, 241.183)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 script = ExtResource("2_icb2l")
@@ -29,3 +29,22 @@ unique_name_in_owner = true
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("5_g4mnh")]
 
 [node name="Title" parent="CanvasLayer" instance=ExtResource("6_kbo01")]
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+script = ExtResource("7_alo4q")
+priority_override = false
+priority = 0
+zoom = Vector2(1, 1)
+follow_mode = 0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0

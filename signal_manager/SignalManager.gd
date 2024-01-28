@@ -5,3 +5,4 @@ extends Node
 ## Signals that must be able to be relayed across the game
 signal level_changed(level)
 signal player_captured
+signal game_completed

@@ -64,7 +64,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"alert",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -141,8 +141,9 @@ script = ExtResource("1_g77j2")
 unique_name_in_owner = true
 position = Vector2(1.90735e-06, -1.90735e-06)
 sprite_frames = SubResource("SpriteFrames_s8vds")
-animation = &"idle"
+animation = &"alert"
 autoplay = "idle"
+frame_progress = 0.774707
 
 [node name="Wallbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kskxo")

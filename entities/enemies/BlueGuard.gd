@@ -45,7 +45,10 @@ func _physics_process(delta):
 		%AnimatedSprite2D.flip_h = false
 	# print(rotation_degrees)
 	%AnimatedSprite2D.global_rotation = 0.0
-	pass
+	
+	# Sync footstep sound
+	if %AnimatedSprite2D.frame == 1:
+		play_footstep()
 
 
 func _on_player_hitbox_body_entered(body):

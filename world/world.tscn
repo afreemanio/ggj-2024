@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdp4frkjdtq0x"]
+[gd_scene load_steps=7 format=3 uid="uid://bdp4frkjdtq0x"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_e82nm"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_icb2l"]
 [ext_resource type="PackedScene" uid="uid://fban2wpkcfxe" path="res://transitions/transition_effect.tscn" id="3_qvs7a"]
 [ext_resource type="PackedScene" uid="uid://waljleni3ptd" path="res://pause/pause.tscn" id="4_u6s6t"]
+[ext_resource type="PackedScene" uid="uid://mxkufx3ddsky" path="res://HUD/hud.tscn" id="5_g4mnh"]
+[ext_resource type="PackedScene" uid="uid://8316xq78hm52" path="res://title/title.tscn" id="6_kbo01"]
 
 [node name="World" type="Node2D"]
 process_mode = 1
@@ -23,3 +25,7 @@ process_mode = 3
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("4_u6s6t")]
 unique_name_in_owner = true
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("5_g4mnh")]
+
+[node name="Title" parent="CanvasLayer" instance=ExtResource("6_kbo01")]

@@ -11,9 +11,6 @@ func _ready() -> void:
 	SignalManager.level_changed.connect(load_level)
 	SignalManager.player_captured.connect(restart_level)
 	
-	# Load a level
-	load_level(2)
-	
 ## Called every frame
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("RESTART"):

@@ -102,3 +102,7 @@ func filter_music_lowpass(enable : bool) -> void:
 	else:
 		AudioServer.remove_bus_effect(index, 1)
 		filter_music_is_lowpassed = false
+
+func change_volume_db(new_volume_db: float, bus: String):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), new_volume_db)
+	

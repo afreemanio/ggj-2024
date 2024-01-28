@@ -18,7 +18,6 @@ const LAUGH_THRESHOLD_SMALL : float = 25.0
 const LAUGH_THRESHOLD_MEDIUM : float = 50.0
 const LAUGH_THRESHOLD_LARGE : float = 75.0
 
-
 @export var epona_meter_starting_value : float = 3.0
 # 0 is empty, 1 is one, 2 is 2, 3 is 3 (max)
 @export var epona_meter_max : float = 3.0
@@ -56,7 +55,6 @@ var bigLaughSoundArray = ["res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH.wav","r
 func _ready():
 	epona_meter_value = epona_meter_starting_value
 	pass
-
 
 func calculate_laugh_type(laugh_percentage):
 	if laugh_percentage == MAX_PERCENT:
@@ -119,6 +117,10 @@ func _physics_process(delta: float) -> void:
 		# If the laugh percentage has reached 100%, force a laugh
 		if laugh_percentage == MAX_PERCENT:
 			laugh()
+			
+	# Cache the laugh percentage and epona meter
+	StatManager.player_laugh_percentage = laugh_percentage
+	StatManager.player_epona_meter = epona_meter_value
 
 ## Make the character laugh and decrement the bar
 func laugh() -> void:
@@ -136,7 +138,6 @@ func laugh() -> void:
 	var overlapping_bodies_array : Array
 	if laugh_percentage == MAX_PERCENT:
 		print("Max Laugh")
-		print("God Damn!")
 		print(overlapping_bodies_array)
 		pass
 	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
@@ -162,9 +163,7 @@ func laugh() -> void:
 	
 	# Call the alert function on any guard caught in the radius
 	for body in overlapping_bodies_array:
-		# if body is PlaceholderEnemy:
 		if body is Enemy:
-			print("AAAAA")
 			# Alerts to sound at player position
 			body.alert_to_sound(global_position)
 			

@@ -37,5 +37,8 @@ rotation = -3.01327
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(255, 128)
 
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(257, 15)
+
 [editable path="BlueGuard"]
 [editable path="BlueGuard/VisionCone2D"]

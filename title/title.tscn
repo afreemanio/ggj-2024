@@ -1,20 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://8316xq78hm52"]
+[gd_scene load_steps=10 format=3 uid="uid://8316xq78hm52"]
 
 [ext_resource type="Texture2D" uid="uid://pd64151i7116" path="res://title/title.png" id="1_mqj7k"]
 [ext_resource type="Script" path="res://title/title.gd" id="1_q0ohh"]
 [ext_resource type="Texture2D" uid="uid://ddulmkrlnpggb" path="res://title/start.png" id="2_2msi8"]
 [ext_resource type="Texture2D" uid="uid://dyvphspxsi4aj" path="res://title/option.png" id="3_yp7p7"]
-[ext_resource type="Texture2D" uid="uid://da1r626x8mwpf" path="res://title/return.png" id="5_1jxsj"]
+[ext_resource type="Texture2D" uid="uid://bgggx1yhp5bn8" path="res://title/gradient.tres" id="5_ojwct"]
 [ext_resource type="Texture2D" uid="uid://cd70uxupkn66f" path="res://title/credits.png" id="6_rc1pj"]
-
-[sub_resource type="Gradient" id="Gradient_06q6q"]
-colors = PackedColorArray(0.0745098, 0.172549, 0.6, 1, 0.882353, 0.905882, 0.458824, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_uhhn4"]
-gradient = SubResource("Gradient_06q6q")
-fill_from = Vector2(0.5, 0)
-fill_to = Vector2(0.5, 1)
-metadata/_snap_enabled = true
+[ext_resource type="Theme" uid="uid://bwwqme7ofdu4x" path="res://font/theme.tres" id="7_wbs5s"]
+[ext_resource type="PackedScene" uid="uid://fban2wpkcfxe" path="res://transitions/transition_effect.tscn" id="7_x2qty"]
+[ext_resource type="Texture2D" uid="uid://dvlimkl4d7vcv" path="res://title/Return_button.png" id="8_ivm0f"]
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -64,7 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_uhhn4")
+texture = ExtResource("5_ojwct")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Option"]
 layout_mode = 1
@@ -73,10 +67,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -108.5
+offset_top = -63.0
+offset_right = 108.5
+offset_bottom = 91.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -87,6 +81,7 @@ columns = 2
 
 [node name="Music" type="Label" parent="Option/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme = ExtResource("7_wbs5s")
 text = "MUSIC"
 
 [node name="MusicSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]
@@ -98,6 +93,7 @@ value = 0.5
 
 [node name="SFX" type="Label" parent="Option/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme = ExtResource("7_wbs5s")
 text = "SFX"
 
 [node name="SFXSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]
@@ -110,7 +106,8 @@ value = 0.5
 
 [node name="ReturnButton" type="TextureRect" parent="Option/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("5_1jxsj")
+texture = ExtResource("8_ivm0f")
+stretch_mode = 3
 
 [node name="Credits" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -120,7 +117,54 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_rc1pj")
+texture = ExtResource("5_ojwct")
+
+[node name="VBoxContainer" type="GridContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -124.0
+offset_right = 191.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+columns = 2
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_wbs5s")
+text = "PROGRAMMING:
+LANE MCMARTIN
+&
+ANDREW FREEMAN"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Credits/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_wbs5s")
+text = "DESIGN:
+CHRIS LAPOINTE"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Credits/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_wbs5s")
+text = "ART:
+KYLE SHOUHDA"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="Credits/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_wbs5s")
+text = "MUSIC:
+JON PORD"
+horizontal_alignment = 1
 
 [node name="ReplayButton" type="TextureRect" parent="Credits"]
 layout_mode = 1
@@ -129,13 +173,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 92.0
-offset_right = 20.0
-offset_bottom = 132.0
+offset_left = -101.0
+offset_top = 76.0
+offset_right = 54.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_1jxsj")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_ivm0f")
+
+[node name="TransitionEffect" parent="." instance=ExtResource("7_x2qty")]
+unique_name_in_owner = true
+
+[node name="WinScreen" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_rc1pj")
 
 [connection signal="gui_input" from="Main/VBoxContainer/StartButton" to="." method="_on_start_gui_input"]
 [connection signal="gui_input" from="Main/VBoxContainer/OptionButton" to="." method="_on_option_gui_input"]

@@ -53,6 +53,7 @@ speed = 100
 [node name="Goal" parent="." instance=ExtResource("3_yaijb")]
 position = Vector2(680, 16)
 level_to_load = 2
+is_final = true
 
 [node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
 position = Vector2(204, 521)

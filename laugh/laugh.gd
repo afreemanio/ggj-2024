@@ -27,6 +27,8 @@ const LAUGH_THRESHOLD_LARGE : float = 75.0
 var epona_meter_value = 0
 
 
+var smallLaughSoundArray = ["res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_1.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_2.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_3.wav"  ]
+var bigLaughSoundArray = ["res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH.wav","res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH_1.wav","res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH_2.wav"]
 
 ## The percentage of the laugh meter
 @export var laugh_percentage : float = 0.0:
@@ -68,6 +70,19 @@ func calculate_laugh_type(laugh_percentage):
 	else:
 		return "NONE"
 
+func find_laugh_audio_array(laugh_percentage):
+	if laugh_percentage == MAX_PERCENT:
+		return bigLaughSoundArray
+	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
+		return smallLaughSoundArray
+	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
+		return smallLaughSoundArray
+	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
+		return smallLaughSoundArray
+	else:
+		return smallLaughSoundArray
+
+
 
 
 func decrement_epona_meter():
@@ -92,6 +107,7 @@ func increment_epona_meter(delta):
 
 ## Execute once per physics step (set period of time)
 func _physics_process(delta: float) -> void:
+	
 	%PercentDebugLabel.text = str(laugh_percentage)
 	%TypeDebugLabel.text = calculate_laugh_type(laugh_percentage)
 	%EponaMeterDebugLabel.text = str(epona_meter_value)
@@ -112,7 +128,7 @@ func laugh() -> void:
 		return
 	decrement_epona_meter()
 
-
+	var laugh_type = calculate_laugh_type(laugh_percentage)
 
 	# According to the current laugh volume, emit a radial laugh.
 	# We activate the appropriate radial laugh scan and return a list of
@@ -153,4 +169,6 @@ func laugh() -> void:
 			body.alert_to_sound(global_position)
 			
 	# TODO: Remove placehodler sound
-	AudioManager.play_sfx("res://placeholder/sound.wav")
+	var laughArrayToUse = find_laugh_audio_array(laugh_percentage)
+	var laughToUse = AudioManager.get_random_from_array(laughArrayToUse)
+	AudioManager.play_sfx(laughToUse)

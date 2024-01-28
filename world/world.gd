@@ -5,6 +5,7 @@ extends Node2D
 ## Storage of the current level
 var current_level_instance : Node2D
 var current_level_number : int
+var is_resetting : bool = false
 
 func _ready() -> void:
 	# Connect signals
@@ -39,4 +40,10 @@ func load_level(level_number : int) -> void:
 
 ## Restart the current level
 func restart_level() -> void:
+	if is_resetting:
+		return
+	is_resetting = true
+	AudioManager.play_sfx("res://audio/MX_LOSE_STATE_HH.wav")
+	await get_tree().create_timer(2.0).timeout
 	load_level(current_level_number)
+	is_resetting = false

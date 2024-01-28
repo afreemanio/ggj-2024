@@ -73,3 +73,5 @@ func _player_captured() -> void:
 
 func _on_laugh_global_laughed() -> void:
 	_is_frozen = true
+	await get_tree().create_timer(0.1).timeout
+	AudioManager.play_music_primary("res://audio/MX_ALARM_HH.wav")

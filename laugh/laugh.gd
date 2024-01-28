@@ -18,6 +18,16 @@ const LAUGH_THRESHOLD_SMALL : float = 25.0
 const LAUGH_THRESHOLD_MEDIUM : float = 50.0
 const LAUGH_THRESHOLD_LARGE : float = 75.0
 
+
+@export var epona_meter_starting_value : float = 3.0
+# 0 is empty, 1 is one, 2 is 2, 3 is 3 (max)
+@export var epona_meter_max : float = 3.0
+# regen rate should be number of seconds to go up by 1
+@export var epona_meter_regen_rate : float = 4
+var epona_meter_value = 0
+
+
+
 ## The percentage of the laugh meter
 @export var laugh_percentage : float = 0.0:
 	set(value):
@@ -42,6 +52,7 @@ const LAUGH_THRESHOLD_LARGE : float = 75.0
 
 ## Execute on ready
 func _ready():
+	epona_meter_value = epona_meter_starting_value
 	pass
 
 
@@ -59,10 +70,33 @@ func calculate_laugh_type(laugh_percentage):
 
 
 
+func decrement_epona_meter():
+	var new_value = epona_meter_value - 1
+	# make sure it cannot go below 0
+	if new_value < 0:
+		new_value = 0
+	# floor to the nearest integer
+	new_value = floor(new_value)
+	epona_meter_value = new_value
+
+func increment_epona_meter(delta):
+	if epona_meter_value == epona_meter_max:
+		return
+	if epona_meter_value > epona_meter_max:
+		epona_meter_value = epona_meter_max
+		return
+	# increase epona meter by delta times the regen rate
+	# regen rate is the number of seconds to go up by 1
+	# so if regen rate is 4, then we go up by 1 every 4 seconds
+	epona_meter_value = epona_meter_value + (delta * (1 / epona_meter_regen_rate))
+
 ## Execute once per physics step (set period of time)
 func _physics_process(delta: float) -> void:
 	%PercentDebugLabel.text = str(laugh_percentage)
 	%TypeDebugLabel.text = calculate_laugh_type(laugh_percentage)
+	%EponaMeterDebugLabel.text = str(epona_meter_value)
+	increment_epona_meter(delta)
+
 	# If the laugh is enabled, increment the bar by our set time
 	if laugh_active:
 		laugh_percentage += ((MAX_PERCENT / laugh_increment_time) * delta)
@@ -72,6 +106,14 @@ func _physics_process(delta: float) -> void:
 
 ## Make the character laugh and decrement the bar
 func laugh() -> void:
+	# First, check to make sure the laugh is allowed (not already laughing, epona meter is not empty)
+	if epona_meter_value < 1:
+		# TODO: Play a sound to indicate that the laugh is not allowed
+		return
+	decrement_epona_meter()
+
+
+
 	# According to the current laugh volume, emit a radial laugh.
 	# We activate the appropriate radial laugh scan and return a list of
 	# whatever was caught in the scan.

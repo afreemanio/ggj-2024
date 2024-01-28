@@ -18,6 +18,8 @@ script = ExtResource("1_t21yr")
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 
 [node name="TypeDebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -25,6 +27,15 @@ offset_left = -2.0
 offset_top = 24.0
 offset_right = 38.0
 offset_bottom = 47.0
+theme_override_colors/font_color = Color(1, 0, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+
+[node name="EponaMeterDebugLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_top = 48.0
+offset_right = 40.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(1, 0, 1, 1)
 
 [node name="SmallLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true

@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://8316xq78hm52"]
+
+[ext_resource type="Texture2D" uid="uid://pd64151i7116" path="res://title/title.png" id="1_mqj7k"]
+[ext_resource type="Script" path="res://title/title.gd" id="1_q0ohh"]
+[ext_resource type="Texture2D" uid="uid://ddulmkrlnpggb" path="res://title/start.png" id="2_2msi8"]
+[ext_resource type="Texture2D" uid="uid://dyvphspxsi4aj" path="res://title/option.png" id="3_yp7p7"]
+[ext_resource type="Texture2D" uid="uid://da1r626x8mwpf" path="res://title/return.png" id="5_1jxsj"]
+
+[sub_resource type="Gradient" id="Gradient_06q6q"]
+colors = PackedColorArray(0.0745098, 0.172549, 0.6, 1, 0.882353, 0.905882, 0.458824, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uhhn4"]
+gradient = SubResource("Gradient_06q6q")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+metadata/_snap_enabled = true
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_q0ohh")
+
+[node name="Main" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_mqj7k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = 15.0
+offset_right = 94.5
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="StartButton" type="TextureRect" parent="Main/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_2msi8")
+
+[node name="OptionButton" type="TextureRect" parent="Main/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_yp7p7")
+
+[node name="Option" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_uhhn4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Option"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Option/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="Music" type="Label" parent="Option/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "MUSIC"
+
+[node name="MusicSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="SFX" type="Label" parent="Option/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="ReturnButton" type="TextureRect" parent="Option/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1jxsj")
+
+[connection signal="gui_input" from="Main/VBoxContainer/StartButton" to="." method="_on_start_gui_input"]
+[connection signal="gui_input" from="Main/VBoxContainer/OptionButton" to="." method="_on_option_gui_input"]
+[connection signal="value_changed" from="Option/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="Option/VBoxContainer/GridContainer/SFXSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="gui_input" from="Option/VBoxContainer/ReturnButton" to="." method="_on_return_button_gui_input"]

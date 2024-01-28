@@ -9,6 +9,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
 		if not is_final:
 			print("EMITTING LEVEL LOAD")
-			SignalManager.level_changed.emit(level_to_load)
+			AudioManager.play_sfx("res://audio/SFX_WOOSH_HH.wav")
+		
+		SignalManager.level_changed.emit(level_to_load)
 		if is_final:
 			SignalManager.game_completed.emit()

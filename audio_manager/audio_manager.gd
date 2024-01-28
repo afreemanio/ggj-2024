@@ -28,6 +28,7 @@ func get_random_from_array(array : Array):
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# return TO DISABLE SOUND
 	# Init SFX players
 	for player in SFX_PLAYER_COUNT:

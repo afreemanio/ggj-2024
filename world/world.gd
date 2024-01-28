@@ -28,6 +28,7 @@ func unload_current_level_instance() -> void:
 func load_level(level_number : int) -> void:
 	await %TransitionEffect.fade_black(2)
 	print("Loading Level " + str(level_number))
+	AudioManager.play_sfx("res://audio/MX_LOOP_START_HH.mp3")
 	AudioManager.play_music_primary("res://audio/MX_LEVEL_HH.wav")
 	StatManager.guards_alerted = 0
 	unload_current_level_instance()
@@ -52,5 +53,6 @@ func restart_level() -> void:
 ## Complete the game
 func game_complete() -> void:
 	await %TransitionEffect.fade_black(2)
-	unload_current_level_instance
+	unload_current_level_instance() # fixed bug here - andrew
+	AudioManager.play_music_primary("res://audio/MX_WIN_STATE_HH.wav")
 	await %TransitionEffect.unfade_black(2)

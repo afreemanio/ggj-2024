@@ -32,10 +32,12 @@ var bigLaughSoundArray = ["res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH.wav","r
 @export var small_light_color: Color
 @export var medium_light_color: Color
 @export var big_light_color: Color
+@export var global_light_color: Color
 const SMALL_LIGHT_SIZE : int = 1
 const MEDIUM_LIGHT_SIZE : int = 2
 const BIG_LIGHT_SIZE : int = 3
-enum LIGHT_SIZE {SMALL_LIGHT, MEDIUM_LIGHT, BIG_LIGHT}
+const GLOBAL_LIGHT_SIZE : int = 10
+enum LIGHT_SIZE {SMALL_LIGHT, MEDIUM_LIGHT, BIG_LIGHT, GLOBAL_LIGHT}
 
 ## The percentage of the laugh meter
 @export var laugh_percentage : float = 0.0:
@@ -124,7 +126,9 @@ func _physics_process(delta: float) -> void:
 		laugh_percentage += ((MAX_PERCENT / laugh_increment_time) * delta)
 		# If the laugh percentage has reached 100%, force a laugh
 		if laugh_percentage == MAX_PERCENT:
-			laugh()
+			if %GlobalLaughTimer.is_stopped():
+				laugh()
+				%GlobalLaughTimer.start()
 			
 	# Cache the laugh percentage and epona meter
 	StatManager.player_laugh_percentage = laugh_percentage
@@ -132,6 +136,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Set the next light size if relevant
 	if laugh_percentage == MAX_PERCENT:
+		modify_light(LIGHT_SIZE.GLOBAL_LIGHT)
 		pass
 	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
 		modify_light(LIGHT_SIZE.BIG_LIGHT)
@@ -160,6 +165,7 @@ func laugh() -> void:
 	# whatever was caught in the scan.
 	var overlapping_bodies_array : Array
 	if laugh_percentage == MAX_PERCENT:
+		overlapping_bodies_array = %GlobalLaughArea2D.get_overlapping_bodies()
 		print("Max Laugh")
 		print(overlapping_bodies_array)
 		pass
@@ -167,22 +173,29 @@ func laugh() -> void:
 		overlapping_bodies_array = %LargeLaughArea2D.get_overlapping_bodies()
 		print("Large")
 		print(overlapping_bodies_array)
+		# Reset the laugh percentage
+		laugh_percentage -= 100
 		pass
 	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
 		overlapping_bodies_array = %MediumLaughArea2D.get_overlapping_bodies()
 		print("Medium")
 		print(overlapping_bodies_array)
+		# Reset the laugh percentage
+		laugh_percentage -= 100
 		pass
 	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
 		overlapping_bodies_array = %SmallLaughArea2D.get_overlapping_bodies()
 		print("Small")
 		print(overlapping_bodies_array)
+		# Reset the laugh percentage
+		laugh_percentage -= 100
 		pass
 	else:
+		# Reset the laugh percentage
+		laugh_percentage -= 100
 		pass
 		
-	# Reset the laugh percentage
-	laugh_percentage -= 100
+	
 	
 	# Call the alert function on any guard caught in the radius
 	for body in overlapping_bodies_array:
@@ -195,16 +208,18 @@ func laugh() -> void:
 	AudioManager.play_sfx(laughToUse)
 
 func modify_light(light : LIGHT_SIZE) -> void:
-	pass
-	var light_tweener : Tween = create_tween()
 	match light:
 		LIGHT_SIZE.SMALL_LIGHT:
+			var light_tweener : Tween = create_tween()
 			light_tweener.tween_property(%PointLight2D, "scale", Vector2(SMALL_LIGHT_SIZE, SMALL_LIGHT_SIZE), 0.2).set_ease(Tween.EASE_IN_OUT)
 			light_tweener.parallel().tween_property(%PointLight2D, "color", small_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
 		LIGHT_SIZE.MEDIUM_LIGHT:
+			var light_tweener : Tween = create_tween()
 			light_tweener.tween_property(%PointLight2D, "scale", Vector2(MEDIUM_LIGHT_SIZE, MEDIUM_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
 			light_tweener.parallel().tween_property(%PointLight2D, "color", medium_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
 		LIGHT_SIZE.BIG_LIGHT:
+			var light_tweener : Tween = create_tween()
 			light_tweener.tween_property(%PointLight2D, "scale", Vector2(BIG_LIGHT_SIZE, BIG_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
 			light_tweener.parallel().tween_property(%PointLight2D, "color", big_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
-	
+		GLOBAL_LIGHT_SIZE:
+			pass

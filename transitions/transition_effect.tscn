@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://fban2wpkcfxe"]
+[gd_scene load_steps=8 format=3 uid="uid://fban2wpkcfxe"]
 
 [ext_resource type="Script" path="res://transitions/transition_effect.gd" id="1_4qw73"]
 
@@ -25,7 +25,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ytivt"]
 resource_name = "fade_black"
-length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,16 +32,32 @@ tracks/0/path = NodePath("TextureRect:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 2),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_bbywy"]
+resource_name = "unfade_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aecgh"]
 _data = {
 "RESET": SubResource("Animation_4usrr"),
-"fade_black": SubResource("Animation_ytivt")
+"fade_black": SubResource("Animation_ytivt"),
+"unfade_black": SubResource("Animation_bbywy")
 }
 
 [node name="TransitionEffect" type="CanvasLayer"]

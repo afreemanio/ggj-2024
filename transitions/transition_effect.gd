@@ -1,9 +1,9 @@
 class_name TransitionEffect extends CanvasLayer
 
-func fade_black() -> void:
-	%AnimationPlayer.play("fade_black")
+func fade_black(seconds : float = 1.0) -> void:
+	%AnimationPlayer.play("fade_black", -1, seconds)
 	await %AnimationPlayer.animation_finished
 	
-func unfade_black() -> void:
-	%AnimationPlayer.play_backwards("fade_black")
+func unfade_black(seconds : float = 1.0) -> void:
+	%AnimationPlayer.play("unfade_black", -1, seconds)
 	await %AnimationPlayer.animation_finished

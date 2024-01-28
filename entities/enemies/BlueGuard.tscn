@@ -206,10 +206,10 @@ rotation = -1.5708
 angle_deg = 19
 ray_count = 50
 max_distance = 70.0
-debug_lines = true
-debug_shape = true
+collision_layer_mask = 1
 
 [node name="VisionConeArea" parent="VisionCone2D" index="1"]
+collision_layer = 1
 collision_mask = 2
 
 [node name="PlayerHitbox" type="Area2D" parent="."]

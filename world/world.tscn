@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://waljleni3ptd" path="res://pause/pause.tscn" id="4_u6s6t"]
 
 [node name="World" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_e82nm")
 
 [node name="TransitionEffect" parent="." instance=ExtResource("3_qvs7a")]
@@ -18,6 +19,7 @@ position = Vector2(80, 176)
 script = ExtResource("2_icb2l")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("4_u6s6t")]
 unique_name_in_owner = true

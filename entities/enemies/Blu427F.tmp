@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://buw8rp45vhegt"]
+[gd_scene load_steps=15 format=3 uid="uid://buw8rp45vhegt"]
 
 [ext_resource type="Script" path="res://entities/enemies/BlueGuard.gd" id="1_g77j2"]
 [ext_resource type="Texture2D" uid="uid://co7hu8h5emrdt" path="res://placeholder/guardsc.png" id="2_wwsd1"]
@@ -9,8 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://kf8tqdlm8c5t" path="res://addons/vision_cone_2d/vision_cone_2d_template.tscn" id="6_pn2wh"]
 [ext_resource type="Script" path="res://entities/enemies/enemy_captured_player_state.gd" id="7_ds8lg"]
 [ext_resource type="Script" path="res://entities/enemies/enemy_follow_noise_state.gd" id="8_fefo4"]
-[ext_resource type="Script" path="res://entities/enemies/enemy_found_noise_source_quick_search_state.gd" id="9_b3jw4"]
-[ext_resource type="Script" path="res://entities/enemies/enemy_navigate_back_to_path_state.gd" id="10_pxvt8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8vds"]
 animations = [{
@@ -35,11 +33,10 @@ animations = [{
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_doqb8"]
-radius = 1.0
+radius = 21.0
 
 [sub_resource type="Animation" id="Animation_lca1u"]
 resource_name = "search_left_and_right"
-length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -47,22 +44,10 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-0.1, 1.025, 2.025, 3.025, 4.025, 5.025),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 2,
-"values": [0.0, 0.0, 3.14159, 0.0, -3.14159, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector2(2, 2)]
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5708, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oa2be"]
@@ -71,7 +56,7 @@ _data = {
 }
 
 [node name="BlueGuard" type="CharacterBody2D"]
-scale = Vector2(2, 2)
+rotation = 1.5708
 collision_layer = 4
 script = ExtResource("1_g77j2")
 
@@ -125,18 +110,6 @@ actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 
-[node name="EnemyFoundNoiseQuickSearchState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "animation_player")]
-script = ExtResource("9_b3jw4")
-actor = NodePath("../..")
-animator = NodePath("../../AnimatedSprite2D")
-vision_cast = NodePath("../../RayCast2D")
-animation_player = NodePath("../../AnimationPlayer")
-
-[node name="EnemyNavigateBackToPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator")]
-script = ExtResource("10_pxvt8")
-actor = NodePath("../..")
-animator = NodePath("../../AnimatedSprite2D")
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
 
@@ -151,39 +124,23 @@ debug_shape = true
 [node name="VisionConeArea" parent="VisionCone2D" index="1"]
 collision_mask = 2
 
-[node name="PlayerHitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="PlayerHitboxArea" type="CollisionShape2D" parent="PlayerHitbox"]
-shape = SubResource("CircleShape2D_doqb8")
-
-[node name="SoundHitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
-
-[node name="SoundHitboxArea" type="CollisionShape2D" parent="SoundHitbox"]
-shape = SubResource("CircleShape2D_doqb8")
-
-[node name="PathReturnHitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 32
-
-[node name="PathReturnHitboxArea" type="CollisionShape2D" parent="PathReturnHitbox"]
+[node name="HitboxArea" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_doqb8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_oa2be")
 }
+autoplay = "search_left_and_right"
 
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="FiniteStateMachine/EnemyFollowPathState" method="_on_vision_cone_area_body_entered"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_exited"]
 [connection signal="body_exited" from="VisionCone2D/VisionConeArea" to="FiniteStateMachine/EnemyFollowPathState" method="_on_vision_cone_area_body_exited"]
-[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]
-[connection signal="body_entered" from="SoundHitbox" to="." method="_on_sound_hitbox_body_entered"]
-[connection signal="body_entered" from="PathReturnHitbox" to="." method="_on_path_return_hitbox_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 
 [editable path="VisionCone2D"]

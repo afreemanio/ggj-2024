@@ -15,6 +15,8 @@ class_name BlueGuard extends Enemy
 @onready var enemy_chase_state = $FiniteStateMachine/EnemyChaseState as EnemyChaseState
 @onready var enemy_follow_path_state = $FiniteStateMachine/EnemyFollowPathState as EnemyFollowPathState
 @onready var enemy_follow_noise_state = $FiniteStateMachine/EnemyFollowNoiseState as EnemyFollowNoiseState
+@onready var enemy_found_noise_quick_search_state = $FiniteStateMachine/EnemyFoundNoiseQuickSearchState as EnemyFoundNoiseQuickSearchState
+@onready var enemy_navigate_back_to_path_state = $FiniteStateMachine/EnemyNavigateBackToPathState as EnemyNavigateBackToPathState
 @onready var enemy_captured_player_state = $FiniteStateMachine/EnemyCapturedPlayerState as EnemyCapturedPlayerState
 @onready var hitbox = $Hitbox
 @onready var vision_renderer = $VisionCone2D/VisionConeRenderer
@@ -30,6 +32,7 @@ func _ready():
 	enemy_wander_state.found_player.connect(fsm.change_state.bind(enemy_chase_state))
 	enemy_chase_state.lost_player.connect(fsm.change_state.bind(enemy_wander_state))
 	enemy_follow_path_state.found_player.connect(fsm.change_state.bind(enemy_chase_state))
+	enemy_follow_noise_state.found_noise.connect(fsm.change_state.bind(enemy_found_noise_quick_search_state))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -37,7 +40,7 @@ func _physics_process(delta):
 	pass
 
 
-func _on_hitbox_body_entered(body):
+func _on_player_hitbox_body_entered(body):
 	print("PLAYER CAPTURED")
 	fsm.change_state(enemy_captured_player_state)
 	pass # Replace with function body.
@@ -61,3 +64,22 @@ func alert_to_sound(sound_position: Vector2):
 	heard_sound_location_buffer = sound_position
 	fsm.change_state(enemy_follow_noise_state)
 
+
+
+func _on_sound_hitbox_body_entered(body):
+	print("SOUND SOURCE FOUND")
+	fsm.change_state(enemy_found_noise_quick_search_state)
+	pass # Replace with function body.
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "search_left_and_right":
+		print("SEARCH ANIMATION COMPLETE")
+		fsm.change_state(enemy_navigate_back_to_path_state)
+	pass # Replace with function body.
+
+
+func _on_path_return_hitbox_body_entered(body):
+	print("PATH FOUND")
+	fsm.change_state(enemy_follow_path_state)
+	pass # Replace with function body.

@@ -10,6 +10,7 @@ func _ready() -> void:
 	# Connect signals
 	SignalManager.level_changed.connect(load_level)
 	SignalManager.player_captured.connect(restart_level)
+	SignalManager.game_completed.connect(game_complete)
 	
 ## Called every frame
 func _process(delta: float) -> void:
@@ -38,3 +39,9 @@ func load_level(level_number : int) -> void:
 ## Restart the current level
 func restart_level() -> void:
 	load_level(current_level_number)
+
+## Complete the game
+func game_complete() -> void:
+	await %TransitionEffect.fade_black(2)
+	unload_current_level_instance
+	await %TransitionEffect.unfade_black(2)

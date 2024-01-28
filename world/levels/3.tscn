@@ -52,6 +52,7 @@ position = Vector2(721, 99)
 [node name="Goal" parent="." instance=ExtResource("3_3o4jg")]
 position = Vector2(200, 644)
 level_to_load = 1
+is_final = true
 
 [node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(649, 191)

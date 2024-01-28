@@ -86,7 +86,3 @@ texture_filter = 1
 scale = Vector2(3, 3)
 color = Color(1, 1, 0.686275, 1)
 texture = ExtResource("2_451lp")
-
-[node name="GlobalLaughTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-one_shot = true

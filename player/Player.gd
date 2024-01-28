@@ -6,6 +6,7 @@ class_name Player extends CharacterBody2D
 # Cached previous facing direction of the player
 var _previously_moving_right : bool = false
 var _is_captured : bool = false
+var _is_frozen : bool = false
 @onready var audible_area = $AudibleArea2D
 var footstepSoundArray = ["res://audio/SFX_PLAYER_FOOT_HH/SFX_PLAYER_FOOT_HH.wav","res://audio/SFX_PLAYER_FOOT_HH/SFX_PLAYER_FOOT_HH_1.wav","res://audio/SFX_PLAYER_FOOT_HH/SFX_PLAYER_FOOT_HH_2.wav","res://audio/SFX_PLAYER_FOOT_HH/SFX_PLAYER_FOOT_HH_3.wav"]
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -18,15 +19,20 @@ func _ready():
 	animated_sprite_2d.play("idle")
 	animated_sprite_2d.flip_h = true
 	
+	# Set up freeze
+	_is_frozen = false
+	
 	# Connect to signal singleton
 	SignalManager.player_captured.connect(_player_captured)
 	
 func _physics_process(delta):
+	print(_is_frozen)
 	if not _is_captured:
-		if Input.is_action_just_pressed("SPACE"):
-			%Laugh.laugh()
-		_update_movement()
-		move_and_slide()
+		if not _is_frozen:
+			if Input.is_action_just_pressed("SPACE"):
+				%Laugh.laugh()
+			_update_movement()
+			move_and_slide()
 
 ## Get player input and update the movement velocity vector
 func _update_movement():
@@ -64,3 +70,7 @@ func _update_movement():
 ## If the player was captured, call this function and do player-related capture stuff here
 func _player_captured() -> void:
 	_is_captured = true
+
+
+func _on_laugh_global_laughed() -> void:
+	_is_frozen = true

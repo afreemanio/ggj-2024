@@ -174,3 +174,5 @@ shape = SubResource("CircleShape2D_113t1")
 [node name="FootstepTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[connection signal="global_laughed" from="Laugh" to="." method="_on_laugh_global_laughed"]

@@ -11,6 +11,7 @@ signal laugh_started
 signal laugh_stopped
 signal laugh_time_changed
 signal laugh_decremented
+signal global_laughed
 
 ## Consts related to laughing
 const MAX_PERCENT : float = 100.0
@@ -126,9 +127,7 @@ func _physics_process(delta: float) -> void:
 		laugh_percentage += ((MAX_PERCENT / laugh_increment_time) * delta)
 		# If the laugh percentage has reached 100%, force a laugh
 		if laugh_percentage == MAX_PERCENT:
-			if %GlobalLaughTimer.is_stopped():
-				laugh()
-				%GlobalLaughTimer.start()
+			laugh()
 			
 	# Cache the laugh percentage and epona meter
 	StatManager.player_laugh_percentage = laugh_percentage
@@ -168,6 +167,9 @@ func laugh() -> void:
 		overlapping_bodies_array = %GlobalLaughArea2D.get_overlapping_bodies()
 		print("Max Laugh")
 		print(overlapping_bodies_array)
+		# Reset the laugh percentage
+		laugh_percentage -= 100
+		global_laughed.emit()
 		pass
 	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
 		overlapping_bodies_array = %LargeLaughArea2D.get_overlapping_bodies()
@@ -194,8 +196,6 @@ func laugh() -> void:
 		# Reset the laugh percentage
 		laugh_percentage -= 100
 		pass
-		
-	
 	
 	# Call the alert function on any guard caught in the radius
 	for body in overlapping_bodies_array:

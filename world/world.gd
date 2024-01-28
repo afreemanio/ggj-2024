@@ -21,10 +21,10 @@ func unload_current_level_instance() -> void:
 	if is_instance_valid(current_level_instance):
 		current_level_instance.queue_free()
 	current_level_instance = null
-	await %TransitionEffect.fade_black(2)
 
 ## Load the desired level
 func load_level(level_number : int) -> void:
+	await %TransitionEffect.fade_black(2)
 	print("Loading Level " + str(level_number))
 	unload_current_level_instance()
 	var level_path : String = "res://world/levels/%s.tscn" % str(level_number)
@@ -33,7 +33,7 @@ func load_level(level_number : int) -> void:
 		current_level_instance = level_resource.instantiate()
 		current_level_number = level_number
 		add_child(current_level_instance)
-		await %TransitionEffect.unfade_black(2)
+	await %TransitionEffect.unfade_black(2)
 
 ## Restart the current level
 func restart_level() -> void:

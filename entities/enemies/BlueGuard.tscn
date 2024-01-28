@@ -32,10 +32,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kskxo"]
-radius = 20.0
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_doqb8"]
-radius = 1.0
 
 [sub_resource type="Animation" id="Animation_lca1u"]
 resource_name = "search_left_and_right"
@@ -118,11 +117,12 @@ actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 
-[node name="EnemyFollowNoiseState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+[node name="EnemyFollowNoiseState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "nav_agent")]
 script = ExtResource("8_fefo4")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
+nav_agent = NodePath("../../NavigationAgent2D")
 
 [node name="EnemyFoundNoiseQuickSearchState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast", "animation_player")]
 script = ExtResource("9_b3jw4")
@@ -131,10 +131,11 @@ animator = NodePath("../../AnimatedSprite2D")
 vision_cast = NodePath("../../RayCast2D")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="EnemyNavigateBackToPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator")]
+[node name="EnemyNavigateBackToPathState" type="Node2D" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "nav_agent")]
 script = ExtResource("10_pxvt8")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
+nav_agent = NodePath("../../NavigationAgent2D")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
@@ -175,6 +176,15 @@ shape = SubResource("CircleShape2D_doqb8")
 libraries = {
 "": SubResource("AnimationLibrary_oa2be")
 }
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+target_desired_distance = 20.0
+path_max_distance = 200.0
+radius = 80.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
 
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="." method="_on_vision_cone_area_body_entered"]
 [connection signal="body_entered" from="VisionCone2D/VisionConeArea" to="FiniteStateMachine/EnemyFollowPathState" method="_on_vision_cone_area_body_entered"]

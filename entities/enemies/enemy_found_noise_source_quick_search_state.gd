@@ -26,6 +26,8 @@ var heard_sound_location: Vector2
 @export var animation_player: AnimationPlayer
 
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_physics_process(false)

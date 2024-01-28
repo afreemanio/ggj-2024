@@ -43,6 +43,7 @@ inactive_update_mode = 0
 
 [node name="BlueGuard" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(448, 272)
+acceleration = 10000.0
 target = NodePath("../Player")
 move_on_path = NodePath("../PatrolPath/PathFollow2D")
 path_movement_speed = 2.0

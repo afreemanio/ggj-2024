@@ -9,10 +9,10 @@ signal found_path
 @onready var pos_start = position.x
 
 @onready var rot_start = rotation
-var heard_sound_location: Node2D
+var path_return_location: Node2D
 @export var max_speed_multiplier: float = 0.5
 @export var acceleration_multiplier: float = 0.5
-
+@export var nav_agent: NavigationAgent2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,17 +44,17 @@ func find_closest_abs_pos_to_path(
 
 
 func create_path_location_node(creation_location: Vector2) -> void:
-	if heard_sound_location != null:
-		heard_sound_location.queue_free()
-	heard_sound_location = StaticBody2D.new()
-	heard_sound_location.name = "Home Path Location"
-	heard_sound_location.position = creation_location
-	heard_sound_location.add_to_group("noise_location")
-	heard_sound_location.set_collision_layer_value(1, false)
-	heard_sound_location.set_collision_layer_value(6, true)
-	# heard_sound_location.set_collision_mask_value(3, true)
+	if path_return_location != null:
+		path_return_location.queue_free()
+	path_return_location = StaticBody2D.new()
+	path_return_location.name = "Home Path Location"
+	path_return_location.position = creation_location
+	path_return_location.add_to_group("path_location")
+	path_return_location.set_collision_layer_value(1, false)
+	path_return_location.set_collision_layer_value(6, true)
+	# path_return_location.set_collision_mask_value(3, true)
 	create_collision_on_location_node()
-	get_tree().get_root().add_child(heard_sound_location)
+	get_tree().get_root().add_child(path_return_location)
 
 
 func create_collision_on_location_node() -> void:
@@ -63,11 +63,18 @@ func create_collision_on_location_node() -> void:
 	circle.radius = 1
 	collision.shape = circle
 	# Set layer to 5
-	heard_sound_location.add_child(collision)
+	path_return_location.add_child(collision)
 
 
 func delete_path_location_node() -> void:
-	heard_sound_location.queue_free()
+	path_return_location.queue_free()
+
+func makepath():
+	nav_agent.target_position = path_return_location.global_position
+	# nav_agent.target_position = Vector2.ZERO
+	# print("Nav agent target position is now", nav_agent.target_position)
+
+
 
 
 # Implements enter state:
@@ -79,6 +86,7 @@ func _enter_state() -> void:
 	print("Trying to nav to: " + str(curve_pos))
 	create_path_location_node(curve_pos)
 	actor.heard_sound_location_buffer = Vector2.ZERO
+	makepath()
 	set_physics_process(true)
 
 
@@ -88,18 +96,23 @@ func _exit_state() -> void:
 	set_physics_process(false)
 
 
-# Need to detect if the hitbox is on the noise cone
-
-
 func _physics_process(delta: float) -> void:
-	# Nav the actor towards the point that they were last seen on
-	var direction = actor.global_position.direction_to(heard_sound_location.position)
+	if nav_agent.is_navigation_finished():
+		makepath()
+	var direction = nav_agent.get_next_path_position()
+	var localdirection = actor.global_position.direction_to(direction)
+	# print("actor position is", actor.position)
+	# print("Direction is now", direction)
+	# print("localDirection is now", localdirection)
+
+	# # Nav the actor towards the point that they were last seen on
 	actor.velocity = actor.velocity.move_toward(
-		direction * actor.max_speed * max_speed_multiplier, actor.acceleration * delta * acceleration_multiplier
+		localdirection * actor.max_speed * max_speed_multiplier, actor.acceleration * delta * acceleration_multiplier
 	)
 	actor.move_and_slide()
 	actor.look_at(global_position + actor.velocity)
 	pass
+
 
 
 

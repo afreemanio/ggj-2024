@@ -25,6 +25,10 @@ var heard_sound_location: Node2D
 @export var acceleration_multiplier: float = 0.5
 
 
+# @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@export var nav_agent: NavigationAgent2D
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,6 +69,7 @@ func _enter_state() -> void:
 	# heard_sound_location = actor.heard_sound_location_buffer
 	create_noise_location_node(actor.heard_sound_location_buffer)
 	actor.heard_sound_location_buffer = Vector2.ZERO
+	makepath()
 	set_physics_process(true)
 	# animator.play("move")
 	# if actor.velocity == Vector2.ZERO:
@@ -79,12 +84,25 @@ func _exit_state() -> void:
 
 # Need to detect if the hitbox is on the noise cone
 
+func makepath():
+	nav_agent.target_position = heard_sound_location.global_position
+	# nav_agent.target_position = Vector2.ZERO
+	# print("Nav agent target position is now", nav_agent.target_position)
+
 
 func _physics_process(delta: float) -> void:
-	# Nav the actor towards the point that they were last seen on
-	var direction = actor.global_position.direction_to(heard_sound_location.position)
+
+
+	# var direction = actor.to_local(nav_agent.get_next_path_position()).normalized()
+	var direction = nav_agent.get_next_path_position()
+	var localdirection = actor.global_position.direction_to(direction)
+	# print("actor position is", actor.position)
+	# print("Direction is now", direction)
+	# print("localDirection is now", localdirection)
+
+	# # Nav the actor towards the point that they were last seen on
 	actor.velocity = actor.velocity.move_toward(
-		direction * actor.max_speed * max_speed_multiplier, actor.acceleration * delta * acceleration_multiplier
+		localdirection * actor.max_speed * max_speed_multiplier, actor.acceleration * delta * acceleration_multiplier
 	)
 	actor.move_and_slide()
 	actor.look_at(global_position + actor.velocity)

@@ -8,6 +8,7 @@ var current_level_number : int
 var is_resetting : bool = false
 
 func _ready() -> void:
+	DisplayServer.window_set_title("Hyenas Hijinx")
 	# Connect signals
 	SignalManager.level_changed.connect(load_level)
 	SignalManager.player_captured.connect(restart_level)

@@ -26,7 +26,6 @@ func _ready():
 	SignalManager.player_captured.connect(_player_captured)
 	
 func _physics_process(delta):
-	print(_is_frozen)
 	if not _is_captured:
 		if not _is_frozen:
 			if Input.is_action_just_pressed("SPACE"):

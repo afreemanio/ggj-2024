@@ -92,3 +92,7 @@ func _on_path_return_hitbox_body_entered(body):
 	print("PATH FOUND")
 	fsm.change_state(enemy_follow_path_state)
 	pass # Replace with function body.
+
+
+func play_footstep() -> void:
+	AudioManager.play_sfx("res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_1.wav")

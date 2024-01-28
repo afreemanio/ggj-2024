@@ -52,7 +52,7 @@ speed = 100
 
 [node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(370, 488)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_1/PathFollow2D_1")
@@ -66,7 +66,7 @@ position = Vector2(371, 500)
 
 [node name="BlueGuard_2" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(93, 307)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_2/PathFollow2D_2")
@@ -80,7 +80,7 @@ position = Vector2(92, 320)
 
 [node name="BlueGuard_6" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(309, 81)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_6/PathFollow2D_6")
@@ -99,7 +99,7 @@ level_to_load = 3
 
 [node name="BlueGuard_3" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(56, 251)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_3/PathFollow2D_3")
@@ -114,7 +114,7 @@ rotation = 1.55716
 
 [node name="BlueGuard_4" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(691, 278)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_4/PathFollow2D_4")
@@ -129,7 +129,7 @@ rotation = 1.58299
 
 [node name="BlueGuard_5" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(164, 504)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_5/PathFollow2D_5")

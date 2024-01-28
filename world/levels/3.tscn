@@ -25,7 +25,7 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_6vhtg"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 440, 419, 0, 0, 0, 0, 440, 230, 0, 0, 0, 0, 480, 230, 0, 0, 0, 0, 480, 419, 0, 0, 0, 0, 440, 419)
+"points": PackedVector2Array(0, 0, 0, 0, 441, 230, 0, 0, 0, 0, 480, 229, 0, 0, 0, 0, 481, 430, 0, 0, 0, 0, 440, 429, 0, 0, 0, 0, 441, 230)
 }
 point_count = 5
 
@@ -56,7 +56,7 @@ level_to_load = 1
 
 [node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(649, 191)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_1/PathFollow2D_1")
@@ -71,7 +71,7 @@ rotation = -3.1345
 
 [node name="BlueGuard_2" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(672, 591)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_2/PathFollow2D_2")
@@ -86,7 +86,7 @@ rotation = -3.13607
 
 [node name="BlueGuard_3" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(104, 437)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_3/PathFollow2D_3")
@@ -100,7 +100,7 @@ position = Vector2(101, 440)
 
 [node name="BlueGuard_4" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(440, 420)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_4/PathFollow2D_4")
@@ -110,12 +110,12 @@ path_movement_speed = 2.0
 curve = SubResource("Curve2D_6vhtg")
 
 [node name="PathFollow2D_4" type="PathFollow2D" parent="Path2D_4"]
-position = Vector2(440, 419)
-rotation = -1.5708
+position = Vector2(441, 230)
+rotation = -0.0256354
 
 [node name="BlueGuard_5" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(337, 181)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_5/PathFollow2D_5")
@@ -130,7 +130,7 @@ rotation = -3.11721
 
 [node name="BlueGuard_6" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_j60l6")]
 position = Vector2(199, 19)
-max_speed = 200.0
+max_speed = 125.0
 acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_6/PathFollow2D_6")

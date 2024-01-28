@@ -203,9 +203,9 @@ visible = false
 
 [node name="VisionCone2D" parent="." instance=ExtResource("6_pn2wh")]
 rotation = -1.5708
-angle_deg = 45
+angle_deg = 19
 ray_count = 50
-max_distance = 60.0
+max_distance = 70.0
 debug_lines = true
 debug_shape = true
 

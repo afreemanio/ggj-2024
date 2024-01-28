@@ -161,7 +161,6 @@ inactive_update_mode = 0
 
 [node name="Laugh" parent="." instance=ExtResource("4_lkqjn")]
 unique_name_in_owner = true
-visible = false
 laugh_increment_time = 10.0
 laugh_active = true
 

@@ -63,6 +63,7 @@ func delete_noise_location_node() -> void:
 	heard_sound_location.queue_free()
 
 func set_alert_audio():
+	AudioManager.play_sfx("res://audio/SFX_ALERT_HH.wav")
 	StatManager.guards_alerted = StatManager.guards_alerted + 1
 	var audiotime = AudioManager.music_player_primary.get_playback_position()
 	AudioManager.play_music_primary("res://audio/MX_DANGER_HH.wav", audiotime)

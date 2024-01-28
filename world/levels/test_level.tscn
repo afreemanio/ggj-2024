@@ -12,7 +12,7 @@ _data = {
 }
 point_count = 7
 
-[node name="2" type="Node2D"]
+[node name="3" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-36, 49)

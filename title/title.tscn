@@ -81,8 +81,7 @@ columns = 2
 
 [node name="Music" type="Label" parent="Option/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
+theme = ExtResource("7_wbs5s")
 text = "MUSIC"
 
 [node name="MusicSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]
@@ -94,8 +93,7 @@ value = 0.5
 
 [node name="SFX" type="Label" parent="Option/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
+theme = ExtResource("7_wbs5s")
 text = "SFX"
 
 [node name="SFXSlider" type="HSlider" parent="Option/VBoxContainer/GridContainer"]

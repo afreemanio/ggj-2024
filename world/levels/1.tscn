@@ -15,3 +15,7 @@ position = Vector2(400, 639)
 [node name="Goal" parent="." instance=ExtResource("3_yaijb")]
 position = Vector2(680, 45)
 level_to_load = 2
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.4
+blend_mode = 1

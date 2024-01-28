@@ -14,9 +14,9 @@ signal laugh_decremented
 
 ## Consts related to laughing
 const MAX_PERCENT : float = 100.0
-const LAUGH_THRESHOLD_SMALL : float = 25.0
-const LAUGH_THRESHOLD_MEDIUM : float = 50.0
-const LAUGH_THRESHOLD_LARGE : float = 75.0
+const LAUGH_THRESHOLD_SMALL : float = 0.0
+const LAUGH_THRESHOLD_MEDIUM : float = 33.0
+const LAUGH_THRESHOLD_LARGE : float = 66.0
 
 @export var epona_meter_starting_value : float = 3.0
 # 0 is empty, 1 is one, 2 is 2, 3 is 3 (max)
@@ -25,9 +25,17 @@ const LAUGH_THRESHOLD_LARGE : float = 75.0
 @export var epona_meter_regen_rate : float = 4
 var epona_meter_value = 0
 
-
 var smallLaughSoundArray = ["res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_1.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_2.wav", "res://audio/SFX_LAUGH_SMALL_HH/SFX_LAUGH_SMALL_HH_3.wav"  ]
 var bigLaughSoundArray = ["res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH.wav","res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH_1.wav","res://audio/SFX_LAUGH_BIG_HH/SFX_LAUGH_BIG_HH_2.wav"]
+
+## Light stuff
+@export var small_light_color: Color
+@export var medium_light_color: Color
+@export var big_light_color: Color
+const SMALL_LIGHT_SIZE : int = 1
+const MEDIUM_LIGHT_SIZE : int = 2
+const BIG_LIGHT_SIZE : int = 3
+enum LIGHT_SIZE {SMALL_LIGHT, MEDIUM_LIGHT, BIG_LIGHT}
 
 ## The percentage of the laugh meter
 @export var laugh_percentage : float = 0.0:
@@ -63,7 +71,7 @@ func calculate_laugh_type(laugh_percentage):
 		return "LARGE"
 	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
 		return "MEDIUM"
-	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
+	elif laugh_percentage >= LAUGH_THRESHOLD_SMALL:
 		return "SMALL"
 	else:
 		return "NONE"
@@ -72,7 +80,7 @@ func find_laugh_audio_array(laugh_percentage):
 	if laugh_percentage == MAX_PERCENT:
 		return bigLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
-		return smallLaughSoundArray
+		return bigLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
 		return smallLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
@@ -106,9 +114,9 @@ func increment_epona_meter(delta):
 ## Execute once per physics step (set period of time)
 func _physics_process(delta: float) -> void:
 	
-	%PercentDebugLabel.text = str(laugh_percentage)
-	%TypeDebugLabel.text = calculate_laugh_type(laugh_percentage)
-	%EponaMeterDebugLabel.text = str(epona_meter_value)
+	#%PercentDebugLabel.text = str(laugh_percentage)
+	#%TypeDebugLabel.text = calculate_laugh_type(laugh_percentage)
+	#%EponaMeterDebugLabel.text = str(epona_meter_value)
 	increment_epona_meter(delta)
 
 	# If the laugh is enabled, increment the bar by our set time
@@ -121,6 +129,21 @@ func _physics_process(delta: float) -> void:
 	# Cache the laugh percentage and epona meter
 	StatManager.player_laugh_percentage = laugh_percentage
 	StatManager.player_epona_meter = epona_meter_value
+	
+	# Set the next light size if relevant
+	if laugh_percentage == MAX_PERCENT:
+		pass
+	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
+		modify_light(LIGHT_SIZE.BIG_LIGHT)
+		pass
+	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
+		modify_light(LIGHT_SIZE.MEDIUM_LIGHT)
+		pass
+	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:
+		modify_light(LIGHT_SIZE.SMALL_LIGHT)
+		pass
+	else:
+		pass
 
 ## Make the character laugh and decrement the bar
 func laugh() -> void:
@@ -167,7 +190,20 @@ func laugh() -> void:
 			# Alerts to sound at player position
 			body.alert_to_sound(global_position)
 			
-	# TODO: Remove placehodler sound
 	var laughArrayToUse = find_laugh_audio_array(laugh_percentage)
 	var laughToUse = AudioManager.get_random_from_array(laughArrayToUse)
 	AudioManager.play_sfx(laughToUse)
+
+func modify_light(light : LIGHT_SIZE) -> void:
+	var light_tweener : Tween = create_tween()
+	match light:
+		LIGHT_SIZE.SMALL_LIGHT:
+			light_tweener.tween_property(%PointLight2D, "scale", Vector2(SMALL_LIGHT_SIZE, SMALL_LIGHT_SIZE), 0.2).set_ease(Tween.EASE_IN_OUT)
+			light_tweener.parallel().tween_property(%PointLight2D, "color", small_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+		LIGHT_SIZE.MEDIUM_LIGHT:
+			light_tweener.tween_property(%PointLight2D, "scale", Vector2(MEDIUM_LIGHT_SIZE, MEDIUM_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
+			light_tweener.parallel().tween_property(%PointLight2D, "color", medium_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+		LIGHT_SIZE.BIG_LIGHT:
+			light_tweener.tween_property(%PointLight2D, "scale", Vector2(BIG_LIGHT_SIZE, BIG_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
+			light_tweener.parallel().tween_property(%PointLight2D, "color", big_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+	

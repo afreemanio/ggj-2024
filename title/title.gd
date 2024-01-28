@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 
 func _on_start_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("CLICK"):
-		SignalManager.level_changed.emit(2)
+		SignalManager.level_changed.emit(1)
 		hide()
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnsvra8nohikl"]
+[gd_scene load_steps=11 format=3 uid="uid://bnsvra8nohikl"]
 
 [ext_resource type="PackedScene" uid="uid://d3qt1x8pwrkw8" path="res://tilemaps/tilemap20x20.tscn" id="2_vfdmv"]
 [ext_resource type="PackedScene" uid="uid://4r5eu24erh24" path="res://placeholder/goal.tscn" id="3_fso6u"]
@@ -7,13 +7,13 @@
 
 [sub_resource type="Curve2D" id="Curve2D_hky53"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 371, 489, 0, 0, 0, 0, 610, 491, 0, 0, 0, 0, 610, 651, 0, 0, 0, 0, 370, 650, 0, 0, 0, 0, 371, 489)
+"points": PackedVector2Array(0, 0, 0, 0, 371, 500, 0, 0, 0, 0, 610, 500, 0, 0, 0, 0, 610, 641, 0, 0, 0, 0, 371, 640, 0, 0, 0, 0, 371, 500)
 }
 point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_pjf6e"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 93, 307, 0, 0, 0, 0, 330, 310, 0, 0, 0, 0, 330, 350, 0, 0, 0, 0, 90, 350, 0, 0, 0, 0, 92, 307)
+"points": PackedVector2Array(0, 0, 0, 0, 92, 320, 0, 0, 0, 0, 331, 320, 0, 0, 0, 0, 331, 341, 0, 0, 0, 0, 92, 339, 0, 0, 0, 0, 92, 320)
 }
 point_count = 5
 
@@ -31,7 +31,13 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_lnysx"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 690, 277, 0, 0, 0, 0, 689, 359, 0, 0, 0, 0, 390, 359, 0, 0, 0, 0, 390, 274, 0, 0, 0, 0, 690, 277)
+"points": PackedVector2Array(0, 0, 0, 0, 690, 277, 0, 0, 0, 0, 689, 359, 0, 0, 0, 0, 390, 359, 0, 0, 0, 0, 390, 281, 0, 0, 0, 0, 690, 277)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_65da8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 211, 509, 0, 0, 0, 0, 211, 551, 0, 0, 0, 0, 91, 551, 0, 0, 0, 0, 90, 510, 0, 0, 0, 0, 211, 509)
 }
 point_count = 5
 
@@ -42,9 +48,12 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 1, 65536, 131072, 1, 131072, 131
 
 [node name="Player" parent="." instance=ExtResource("5_31417")]
 position = Vector2(682, 640)
+speed = 100
 
 [node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(370, 488)
+max_speed = 200.0
+acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_1/PathFollow2D_1")
 path_movement_speed = 2.0
@@ -53,11 +62,12 @@ path_movement_speed = 2.0
 curve = SubResource("Curve2D_hky53")
 
 [node name="PathFollow2D_1" type="PathFollow2D" parent="Path2D_1"]
-position = Vector2(371, 489)
-rotation = 0.00836801
+position = Vector2(371, 500)
 
 [node name="BlueGuard_2" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(93, 307)
+max_speed = 200.0
+acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_2/PathFollow2D_2")
 path_movement_speed = 2.0
@@ -66,11 +76,12 @@ path_movement_speed = 2.0
 curve = SubResource("Curve2D_pjf6e")
 
 [node name="PathFollow2D_2" type="PathFollow2D" parent="Path2D_2"]
-position = Vector2(93, 307)
-rotation = 0.0126576
+position = Vector2(92, 320)
 
 [node name="BlueGuard_6" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(309, 81)
+max_speed = 200.0
+acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_6/PathFollow2D_6")
 path_movement_speed = 2.0
@@ -88,6 +99,8 @@ level_to_load = 3
 
 [node name="BlueGuard_3" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(56, 251)
+max_speed = 200.0
+acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_3/PathFollow2D_3")
 path_movement_speed = 2.0
@@ -101,6 +114,8 @@ rotation = 1.55716
 
 [node name="BlueGuard_4" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
 position = Vector2(691, 278)
+max_speed = 200.0
+acceleration = 300.0
 target = NodePath("../Player")
 move_on_path = NodePath("../Path2D_4/PathFollow2D_4")
 path_movement_speed = 2.0
@@ -111,3 +126,18 @@ curve = SubResource("Curve2D_lnysx")
 [node name="PathFollow2D_4" type="PathFollow2D" parent="Path2D_4"]
 position = Vector2(690, 277)
 rotation = 1.58299
+
+[node name="BlueGuard_5" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_xf60o")]
+position = Vector2(164, 504)
+max_speed = 200.0
+acceleration = 300.0
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_5/PathFollow2D_5")
+path_movement_speed = 2.0
+
+[node name="Path2D_5" type="Path2D" parent="."]
+curve = SubResource("Curve2D_65da8")
+
+[node name="PathFollow2D_5" type="PathFollow2D" parent="Path2D_5"]
+position = Vector2(211, 509)
+rotation = 1.5708

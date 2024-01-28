@@ -22,6 +22,11 @@ var sfx_players_queue : Array = []
 ## The currently availale SFX players
 var sfx_players_available : Array = []
 
+
+func get_random_from_array(array : Array):
+	return array[randi() % array.size()]
+
+
 func _ready() -> void:
 	# return TO DISABLE SOUND
 	# Init SFX players
@@ -43,7 +48,7 @@ func _ready() -> void:
 	music_player_secondary.bus = MUSIC_BUS_NAME
 	
 	# TODO: Remove
-	play_music_dual("res://placeholder/lead_place.mp3", "res://placeholder/drum_place.mp3")
+	play_music_primary("res://audio/MX_LEVEL_HH.wav")
 
 func _process(delta: float) -> void:
 	# TODO: REMOVE

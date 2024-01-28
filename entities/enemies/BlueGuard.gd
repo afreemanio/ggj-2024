@@ -44,7 +44,7 @@ func _physics_process(delta):
 		%AnimatedSprite2D.flip_h = true
 	else:
 		%AnimatedSprite2D.flip_h = false
-	print(rotation_degrees)
+	# print(rotation_degrees)
 	%AnimatedSprite2D.global_rotation = 0.0
 	pass
 

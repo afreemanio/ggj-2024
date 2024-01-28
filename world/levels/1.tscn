@@ -1,8 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://uy3mlmhfx6xu"]
+[gd_scene load_steps=11 format=3 uid="uid://uy3mlmhfx6xu"]
 
 [ext_resource type="PackedScene" uid="uid://d3qt1x8pwrkw8" path="res://tilemaps/tilemap20x20.tscn" id="1_8ooks"]
 [ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="2_6d2bx"]
 [ext_resource type="PackedScene" uid="uid://4r5eu24erh24" path="res://placeholder/goal.tscn" id="3_yaijb"]
+[ext_resource type="PackedScene" uid="uid://buw8rp45vhegt" path="res://entities/enemies/BlueGuard.tscn" id="4_8vcxu"]
+
+[sub_resource type="Curve2D" id="Curve2D_h056m"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 209, 531, 0, 0, 0, 0, 10, 530, 0, 0, 0, 0, 10, 530, 0, 0, 0, 0, 10, 349, 0, 0, 0, 0, 211, 349, 0, 0, 0, 0, 209, 531)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_0me31"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 353, 340, 0, 0, 0, 0, 445, 340, 0, 0, 0, 0, 445, 390, 0, 0, 0, 0, 354, 391, 0, 0, 0, 0, 353, 340)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_yr6fs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 592, 529, 0, 0, 0, 0, 591, 350, 0, 0, 0, 0, 650, 350, 0, 0, 0, 0, 650, 529, 0, 0, 0, 0, 592, 529)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_ao43q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 111, 64, 0, 0, 0, 0, 111, 110, 0, 0, 0, 0, 251, 110, 0, 0, 0, 0, 250, 65, 0, 0, 0, 0, 111, 64)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_s7s1p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 344, 90, 0, 0, 0, 0, 340, 250, 0, 0, 0, 0, 420, 250, 0, 0, 0, 0, 420, 89, 0, 0, 0, 0, 344, 90)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_pau62"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 580, 230, 0, 0, 0, 0, 580, 170, 0, 0, 0, 0, 500, 170, 0, 0, 0, 0, 498, 230, 0, 0, 0, 0, 580, 230)
+}
+point_count = 5
 
 [node name="1" type="Node2D"]
 
@@ -13,8 +50,85 @@ layer_0/tile_data = PackedInt32Array(0, 131072, 2, 65536, 131072, 2, 131072, 131
 position = Vector2(400, 639)
 
 [node name="Goal" parent="." instance=ExtResource("3_yaijb")]
-position = Vector2(680, 45)
+position = Vector2(680, 16)
 level_to_load = 2
+
+[node name="BlueGuard_1" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(204, 521)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_1/PathFollow2D_1")
+path_movement_speed = 2.0
+
+[node name="Path2D_1" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h056m")
+
+[node name="PathFollow2D_1" type="PathFollow2D" parent="Path2D_1"]
+position = Vector2(209, 531)
+rotation = -3.13657
+
+[node name="BlueGuard_2" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(360, 341)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_2/PathFollow2D_2")
+path_movement_speed = 2.0
+
+[node name="Path2D_2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0me31")
+
+[node name="PathFollow2D_2" type="PathFollow2D" parent="Path2D_2"]
+position = Vector2(353, 340)
+
+[node name="BlueGuard_3" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(596, 521)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_3/PathFollow2D_3")
+path_movement_speed = 2.0
+
+[node name="Path2D_3" type="Path2D" parent="."]
+curve = SubResource("Curve2D_yr6fs")
+
+[node name="PathFollow2D_3" type="PathFollow2D" parent="Path2D_3"]
+position = Vector2(592, 529)
+rotation = -1.57638
+
+[node name="BlueGuard_4" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(111, 64)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_4/PathFollow2D_4")
+path_movement_speed = 2.0
+
+[node name="Path2D_4" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ao43q")
+
+[node name="PathFollow2D_4" type="PathFollow2D" parent="Path2D_4"]
+position = Vector2(111, 64)
+rotation = 1.5708
+
+[node name="BlueGuard_5" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(344, 91)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_5/PathFollow2D_5")
+path_movement_speed = 2.0
+
+[node name="Path2D_5" type="Path2D" parent="."]
+curve = SubResource("Curve2D_s7s1p")
+
+[node name="PathFollow2D_5" type="PathFollow2D" parent="Path2D_5"]
+position = Vector2(344, 90)
+rotation = 1.59579
+
+[node name="BlueGuard_6" parent="." node_paths=PackedStringArray("target", "move_on_path") instance=ExtResource("4_8vcxu")]
+position = Vector2(573, 221)
+target = NodePath("../Player")
+move_on_path = NodePath("../Path2D_6/PathFollow2D_6")
+path_movement_speed = 2.0
+
+[node name="Path2D_6" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pau62")
+
+[node name="PathFollow2D_6" type="PathFollow2D" parent="Path2D_6"]
+position = Vector2(580, 230)
+rotation = -1.5708
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.4

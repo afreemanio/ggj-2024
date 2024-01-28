@@ -1,0 +1,43 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://cxnxv7l76ktry"]
+
+[ext_resource type="Texture2D" uid="uid://wkvac4nv8m0w" path="res://placeholder/tileset.png" id="1_e22wj"]
+[ext_resource type="PackedScene" uid="uid://bwpqy3drag0i0" path="res://player/player.tscn" id="2_13v07"]
+[ext_resource type="PackedScene" uid="uid://f7oq4665qsl7" path="res://placeholder/enemy_placeholder.tscn" id="3_53tx6"]
+[ext_resource type="PackedScene" uid="uid://4r5eu24erh24" path="res://placeholder/goal.tscn" id="4_1ukpc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lp3c3"]
+resource_name = "TilesetPlaceholder"
+texture = ExtResource("1_e22wj")
+texture_region_size = Vector2i(20, 20)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -9.01561, -16, -9.01561)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_72glg"]
+resource_name = "Entities"
+scenes/1/scene = ExtResource("2_13v07")
+scenes/2/scene = ExtResource("3_53tx6")
+scenes/3/scene = ExtResource("4_1ukpc")
+
+[resource]
+tile_size = Vector2i(20, 20)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_lp3c3")
+sources/1 = SubResource("TileSetScenesCollectionSource_72glg")

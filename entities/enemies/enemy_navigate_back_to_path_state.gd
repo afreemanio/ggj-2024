@@ -80,6 +80,7 @@ func makepath():
 # Implements enter state:
 func _enter_state() -> void:
 	print("ENTER STATE PATH RETURN")
+	animator.play("move")
 	# Find location closest to home path
 	# var curve_pos = find_closest_abs_pos_to_path(actor.move_on_path.get_parent(), actor.global_position)
 	var curve_pos = actor.move_on_path.position

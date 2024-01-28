@@ -37,6 +37,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	ray_cast_2d.target_position = get_local_mouse_position()
+	
+	# Get the global rotation, and convert it to an x-direction
+	var rotation_degrees = rad_to_deg(global_rotation)
+	if (rotation_degrees > -90) and (rotation_degrees < 90):
+		%AnimatedSprite2D.flip_h = true
+	else:
+		%AnimatedSprite2D.flip_h = false
+	print(rotation_degrees)
+	%AnimatedSprite2D.global_rotation = 0.0
 	pass
 
 

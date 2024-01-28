@@ -23,7 +23,7 @@ var sfx_players_queue : Array = []
 var sfx_players_available : Array = []
 
 func _ready() -> void:
-	return
+	# return TO DISABLE SOUND
 	# Init SFX players
 	for player in SFX_PLAYER_COUNT:
 		var new_player : AudioStreamPlayer2D = AudioStreamPlayer2D.new()

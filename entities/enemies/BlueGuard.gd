@@ -19,7 +19,7 @@ class_name BlueGuard extends Enemy
 @onready var enemy_navigate_back_to_path_state = $FiniteStateMachine/EnemyNavigateBackToPathState as EnemyNavigateBackToPathState
 @onready var enemy_captured_player_state = $FiniteStateMachine/EnemyCapturedPlayerState as EnemyCapturedPlayerState
 @onready var vision_renderer = $VisionCone2D/VisionConeRenderer
-
+@onready var footstep_emitting_range = $FootstepEmittingRange
 @onready var heard_sound_location_buffer: Vector2 = Vector2.ZERO
 
 
@@ -48,7 +48,11 @@ func _physics_process(delta):
 	
 	# Sync footstep sound
 	if %AnimatedSprite2D.frame == 1:
-		play_footstep()
+		#if $SoundHitbox.overlaps_area(target.audible_area):
+		if target.audible_area.overlaps_area(footstep_emitting_range):
+			play_footstep()
+	
+
 
 
 func _on_player_hitbox_body_entered(body):

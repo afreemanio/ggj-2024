@@ -48,18 +48,18 @@ func _ready() -> void:
 	music_player_secondary.bus = MUSIC_BUS_NAME
 	
 	# TODO: Remove
-	play_music_primary("res://audio/MX_LEVEL_HH.wav")
+	# play_music_primary("res://audio/MX_LEVEL_HH.wav")
 
 func _process(delta: float) -> void:
 	# TODO: REMOVE
-	if Input.is_action_just_pressed("DOWN"):
-		filter_music_primary_focus(true)
-	if Input.is_action_just_pressed("UP"):
-		filter_music_primary_focus(false)
-	if Input.is_action_just_pressed("LEFT"):
-		filter_music_lowpass(true)
-	if Input.is_action_just_pressed("RIGHT"):
-		filter_music_lowpass(false)
+	# if Input.is_action_just_pressed("DOWN"):
+	# 	filter_music_primary_focus(true)
+	# if Input.is_action_just_pressed("UP"):
+	# 	filter_music_primary_focus(false)
+	# if Input.is_action_just_pressed("LEFT"):
+	# 	filter_music_lowpass(true)
+	# if Input.is_action_just_pressed("RIGHT"):
+	# 	filter_music_lowpass(false)
 	
 	if not sfx_players_queue.is_empty() and not sfx_players_available.is_empty():
 		sfx_players_available[0].stream = load(sfx_players_queue.pop_front())
@@ -75,6 +75,9 @@ func play_sfx(sound : String) -> void:
 func play_music_primary(music : String) -> void:
 	music_player_primary.stream = load(music)
 	music_player_primary.play()
+
+func pause_music_primary() -> void:
+	music_player_primary.stop()
 
 func play_music_secondary(music : String) -> void:
 	music_player_secondary.stream = load(music)

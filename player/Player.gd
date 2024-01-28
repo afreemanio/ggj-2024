@@ -6,6 +6,7 @@ class_name Player extends CharacterBody2D
 # Cached previous facing direction of the player
 var _previously_moving_right : bool = false
 var _is_captured : bool = false
+@onready var audible_area = $AudibleArea2D
 
 func _ready():
 	# Set up initial sprite orientation

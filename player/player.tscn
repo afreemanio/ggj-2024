@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bwpqy3drag0i0"]
+[gd_scene load_steps=23 format=3 uid="uid://bwpqy3drag0i0"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_onop1"]
 [ext_resource type="Texture2D" uid="uid://csn1h2n3qalpf" path="res://player/player_idle.png" id="2_y4hs6"]
@@ -118,6 +118,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufpdd"]
 radius = 16.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_113t1"]
+radius = 400.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
@@ -160,5 +163,13 @@ inactive_update_mode = 0
 
 [node name="Laugh" parent="." instance=ExtResource("4_lkqjn")]
 unique_name_in_owner = true
+visible = false
 laugh_increment_time = 10.0
 laugh_active = true
+
+[node name="AudibleArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AudibleArea2D"]
+shape = SubResource("CircleShape2D_113t1")

@@ -30,7 +30,6 @@ move_on_path = NodePath("../PatrolPath/PathFollow2D")
 path_movement_speed = 1.0
 
 [node name="Player" parent="." instance=ExtResource("3_5ncme")]
-visible = false
 position = Vector2(116, 115)
 
 [node name="PatrolPath" type="Path2D" parent="."]

@@ -3,9 +3,12 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	AudioManager.play_music_primary("res://audio/MX_MENU_HH.wav")
 	%Main.show()
 	%Option.hide()
 	%Credits.hide()
+	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -14,7 +17,12 @@ func _process(delta: float) -> void:
 
 func _on_start_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("CLICK"):
+		AudioManager.play_sfx("res://audio/UI_START_HH.wav")
+		AudioManager.pause_music_primary() 
+		await get_tree().create_timer(2.0).timeout
+		
 		SignalManager.level_changed.emit(1)
+		AudioManager.play_music_primary("res://audio/MX_LEVEL_HH.wav")
 		hide()
 
 
@@ -24,12 +32,14 @@ func _on_option_gui_input(event: InputEvent) -> void:
 		%Main.hide()
 		%Option.show()
 		%Credits.hide()
+		AudioManager.play_sfx("res://audio/UI_SELECT_HH.wav")
 		#await %TransitionEffect.unfade_black()
 
 
 func _on_return_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("CLICK"):
 		show_title()
+		AudioManager.play_sfx("res://audio/UI_SELECT_HH.wav")
 
 
 func _on_music_slider_value_changed(value: float) -> void:

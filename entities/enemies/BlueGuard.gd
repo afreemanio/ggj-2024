@@ -18,7 +18,6 @@ class_name BlueGuard extends Enemy
 @onready var enemy_found_noise_quick_search_state = $FiniteStateMachine/EnemyFoundNoiseQuickSearchState as EnemyFoundNoiseQuickSearchState
 @onready var enemy_navigate_back_to_path_state = $FiniteStateMachine/EnemyNavigateBackToPathState as EnemyNavigateBackToPathState
 @onready var enemy_captured_player_state = $FiniteStateMachine/EnemyCapturedPlayerState as EnemyCapturedPlayerState
-@onready var hitbox = $Hitbox
 @onready var vision_renderer = $VisionCone2D/VisionConeRenderer
 
 @onready var heard_sound_location_buffer: Vector2 = Vector2.ZERO

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://hl3t1bx1lcjk"]
 
-[ext_resource type="PackedScene" uid="uid://d3qt1x8pwrkw8" path="res://tilemaps/tilemap20x20.tscn" id="2_vfdmv"]
+[ext_resource type="PackedScene" path="res://tilemaps/tilemap20x20.tscn" id="2_vfdmv"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_4paqk"]
 [ext_resource type="PackedScene" uid="uid://4r5eu24erh24" path="res://placeholder/goal.tscn" id="3_fso6u"]
 [ext_resource type="PackedScene" uid="uid://buw8rp45vhegt" path="res://entities/enemies/BlueGuard.tscn" id="4_xf60o"]

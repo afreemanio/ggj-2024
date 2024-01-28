@@ -45,7 +45,10 @@ func _physics_process(delta):
 		%AnimatedSprite2D.flip_h = false
 	# print(rotation_degrees)
 	%AnimatedSprite2D.global_rotation = 0.0
-	pass
+	
+	# Sync footstep sound
+	if %AnimatedSprite2D.frame == 1:
+		play_footstep()
 
 
 func _on_player_hitbox_body_entered(body):
@@ -92,3 +95,7 @@ func _on_path_return_hitbox_body_entered(body):
 	print("PATH FOUND")
 	fsm.change_state(enemy_follow_path_state)
 	pass # Replace with function body.
+
+
+func play_footstep() -> void:
+	AudioManager.play_sfx("res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_1.wav")

@@ -71,7 +71,7 @@ func _enter_state() -> void:
 	actor.heard_sound_location_buffer = Vector2.ZERO
 	makepath()
 	set_physics_process(true)
-	# animator.play("move")
+	animator.play("move")
 	# if actor.velocity == Vector2.ZERO:
 	# 	actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
 

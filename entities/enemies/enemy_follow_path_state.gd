@@ -32,7 +32,7 @@ func _ready():
 func _enter_state() -> void:
 	print("ENTER STATE PATH FOLLOW")
 	set_physics_process(true)
-	# animator.play("move")
+	animator.play("move")
 	# if actor.velocity == Vector2.ZERO:
 	# 	actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
 

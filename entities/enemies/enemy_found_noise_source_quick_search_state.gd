@@ -37,6 +37,7 @@ func _enter_state() -> void:
 	print("ENTER STATE FOUND NOISE QUICK SEARCH")
 	actor.velocity = Vector2.ZERO
 	print(animation_player.get_animation_list())
+	animator.play("idle")
 	animation_player.play("search_left_and_right")
 	set_physics_process(true)
 

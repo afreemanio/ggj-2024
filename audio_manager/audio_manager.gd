@@ -72,14 +72,14 @@ func _on_sfx_finished(player):
 func play_sfx(sound : String) -> void:
 	sfx_players_queue.append(sound)
 	
-func play_music_primary(music : String) -> void:
+func play_music_primary(music : String, position = 0) -> void:
 	music_player_primary.stream = load(music)
-	music_player_primary.play()
+	music_player_primary.play(position)
 
 func pause_music_primary() -> void:
 	music_player_primary.stop()
 
-func play_music_secondary(music : String) -> void:
+func play_music_secondary(music : String, position = 0) -> void:
 	music_player_secondary.stream = load(music)
 	music_player_secondary.play()
 

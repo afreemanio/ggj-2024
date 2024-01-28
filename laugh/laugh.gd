@@ -195,15 +195,16 @@ func laugh() -> void:
 	AudioManager.play_sfx(laughToUse)
 
 func modify_light(light : LIGHT_SIZE) -> void:
-	var light_tweener : Tween = create_tween()
-	match light:
-		LIGHT_SIZE.SMALL_LIGHT:
-			light_tweener.tween_property(%PointLight2D, "scale", Vector2(SMALL_LIGHT_SIZE, SMALL_LIGHT_SIZE), 0.2).set_ease(Tween.EASE_IN_OUT)
-			light_tweener.parallel().tween_property(%PointLight2D, "color", small_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
-		LIGHT_SIZE.MEDIUM_LIGHT:
-			light_tweener.tween_property(%PointLight2D, "scale", Vector2(MEDIUM_LIGHT_SIZE, MEDIUM_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
-			light_tweener.parallel().tween_property(%PointLight2D, "color", medium_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
-		LIGHT_SIZE.BIG_LIGHT:
-			light_tweener.tween_property(%PointLight2D, "scale", Vector2(BIG_LIGHT_SIZE, BIG_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
-			light_tweener.parallel().tween_property(%PointLight2D, "color", big_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
-	
+	pass
+	#var light_tweener : Tween = create_tween()
+	#match light:
+		#LIGHT_SIZE.SMALL_LIGHT:
+			#light_tweener.tween_property(%PointLight2D, "scale", Vector2(SMALL_LIGHT_SIZE, SMALL_LIGHT_SIZE), 0.2).set_ease(Tween.EASE_IN_OUT)
+			#light_tweener.parallel().tween_property(%PointLight2D, "color", small_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+		#LIGHT_SIZE.MEDIUM_LIGHT:
+			#light_tweener.tween_property(%PointLight2D, "scale", Vector2(MEDIUM_LIGHT_SIZE, MEDIUM_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
+			#light_tweener.parallel().tween_property(%PointLight2D, "color", medium_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+		#LIGHT_SIZE.BIG_LIGHT:
+			#light_tweener.tween_property(%PointLight2D, "scale", Vector2(BIG_LIGHT_SIZE, BIG_LIGHT_SIZE), 1).set_ease(Tween.EASE_IN_OUT)
+			#light_tweener.parallel().tween_property(%PointLight2D, "color", big_light_color, 0.2).set_ease(Tween.EASE_IN_OUT)
+	#

@@ -1,22 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://dubnavv2auhld"]
+[gd_scene load_steps=5 format=3 uid="uid://dubnavv2auhld"]
 
 [ext_resource type="Script" path="res://laugh/laugh.gd" id="1_t21yr"]
-[ext_resource type="Texture2D" uid="uid://d3u7pl1ah8d07" path="res://laugh/lightfill_final.png" id="2_451lp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lbj8"]
-radius = 76.0592
+radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwix2"]
-radius = 151.0
+radius = 300.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_07j1k"]
-radius = 232.002
+radius = 400.0
 
 [node name="Laugh" type="Node2D"]
 script = ExtResource("1_t21yr")
-small_light_color = Color(0.964706, 0.894118, 0.384314, 1)
-medium_light_color = Color(1, 0.627451, 0, 1)
-big_light_color = Color(1, 0.278431, 0, 1)
 
 [node name="PercentDebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -67,10 +63,3 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LargeLaughArea2D"]
 shape = SubResource("CircleShape2D_07j1k")
 debug_color = Color(1, 0, 0.027451, 0.196078)
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-unique_name_in_owner = true
-texture_filter = 1
-scale = Vector2(3, 3)
-color = Color(1, 1, 0.686275, 1)
-texture = ExtResource("2_451lp")

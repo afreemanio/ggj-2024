@@ -5,3 +5,4 @@ extends Node
 
 var player_laugh_percentage : float
 var player_epona_meter : int
+var guards_alerted: int

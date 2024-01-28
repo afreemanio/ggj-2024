@@ -74,7 +74,12 @@ func makepath():
 	# nav_agent.target_position = Vector2.ZERO
 	# print("Nav agent target position is now", nav_agent.target_position)
 
-
+func set_level_audio():
+	StatManager.guards_alerted = StatManager.guards_alerted - 1
+	print("Guards alerted is now", StatManager.guards_alerted)
+	if StatManager.guards_alerted < 1:
+		var audiotime = AudioManager.music_player_primary.get_playback_position()
+		AudioManager.play_music_primary("res://audio/MX_LEVEL_HH.wav", audiotime)
 
 
 # Implements enter state:
@@ -88,6 +93,9 @@ func _enter_state() -> void:
 	create_path_location_node(curve_pos)
 	actor.heard_sound_location_buffer = Vector2.ZERO
 	makepath()
+
+	set_level_audio()
+
 	set_physics_process(true)
 
 

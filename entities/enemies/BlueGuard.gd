@@ -21,8 +21,10 @@ class_name BlueGuard extends Enemy
 @onready var vision_renderer = $VisionCone2D/VisionConeRenderer
 @onready var footstep_emitting_range = $FootstepEmittingRange
 @onready var heard_sound_location_buffer: Vector2 = Vector2.ZERO
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var footstep_timer = $FootstepTimer
 
-
+var footstepSoundArray = ["res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH.wav","res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_1.wav","res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_2.wav","res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_3.wav"]
 
 func _ready():
 	# connect the enemy wander state found player signal to the
@@ -40,18 +42,19 @@ func _physics_process(delta):
 	# Get the global rotation, and convert it to an x-direction
 	var rotation_degrees = rad_to_deg(global_rotation)
 	if (rotation_degrees > -90) and (rotation_degrees < 90):
-		%AnimatedSprite2D.flip_h = true
+		animated_sprite_2d.flip_h = true
 	else:
-		%AnimatedSprite2D.flip_h = false
+		animated_sprite_2d.flip_h = false
 	# print(rotation_degrees)
-	%AnimatedSprite2D.global_rotation = 0.0
+	animated_sprite_2d.global_rotation = 0.0
 	
-	# Sync footstep sound
-	if %AnimatedSprite2D.frame == 1:
-		#if $SoundHitbox.overlaps_area(target.audible_area):
-		if target.audible_area.overlaps_area(footstep_emitting_range):
-			play_footstep()
-	
+	## Sync footstep sound
+	if target and target.audible_area.overlaps_area(footstep_emitting_range) and footstep_timer.is_stopped():
+		if animated_sprite_2d.animation != "idle" and animated_sprite_2d.frame == 1:
+			footstep_timer.start()
+			#print("PLAYING FOOTSTEP IN GUARD")
+			var footstepToUse = AudioManager.get_random_from_array(footstepSoundArray)
+			AudioManager.play_sfx(footstepToUse)
 
 
 
@@ -101,5 +104,3 @@ func _on_path_return_hitbox_body_entered(body):
 	pass # Replace with function body.
 
 
-func play_footstep() -> void:
-	AudioManager.play_sfx("res://audio/SFX_ENEMY_FOOT_HH/SFX_ENEMY_FOOT_HH_1.wav")

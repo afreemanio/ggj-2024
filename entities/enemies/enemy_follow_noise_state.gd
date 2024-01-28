@@ -62,6 +62,10 @@ func create_collision_on_location_node() -> void:
 func delete_noise_location_node() -> void:
 	heard_sound_location.queue_free()
 
+func set_alert_audio():
+	StatManager.guards_alerted = StatManager.guards_alerted + 1
+	var audiotime = AudioManager.music_player_primary.get_playback_position()
+	AudioManager.play_music_primary("res://audio/MX_DANGER_HH.wav", audiotime)
 
 # Implements enter state:
 func _enter_state() -> void:
@@ -69,6 +73,8 @@ func _enter_state() -> void:
 	# heard_sound_location = actor.heard_sound_location_buffer
 	create_noise_location_node(actor.heard_sound_location_buffer)
 	actor.heard_sound_location_buffer = Vector2.ZERO
+
+	set_alert_audio()
 	makepath()
 	set_physics_process(true)
 	animator.play("move")

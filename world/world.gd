@@ -26,6 +26,8 @@ func unload_current_level_instance() -> void:
 ## Load the desired level
 func load_level(level_number : int) -> void:
 	print("Loading Level " + str(level_number))
+	AudioManager.play_music_primary("res://audio/MX_LEVEL_HH.wav")
+	StatManager.guards_alerted = 0
 	unload_current_level_instance()
 	var level_path : String = "res://world/levels/%s.tscn" % str(level_number)
 	var level_resource : PackedScene = load(level_path)

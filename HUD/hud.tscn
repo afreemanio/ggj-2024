@@ -1,22 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://mxkufx3ddsky"]
+[gd_scene load_steps=7 format=3 uid="uid://mxkufx3ddsky"]
 
 [ext_resource type="Script" path="res://HUD/hud.gd" id="1_2dn0i"]
+[ext_resource type="Texture2D" uid="uid://bhinhfbl8e6qm" path="res://HUD/Under.png" id="2_hv8h2"]
+[ext_resource type="Texture2D" uid="uid://guv7n6foofsv" path="res://HUD/Over.png" id="3_het4e"]
+[ext_resource type="Texture2D" uid="uid://bqtdjrghfhji2" path="res://HUD/Progress.png" id="4_fentu"]
 
 [sub_resource type="Gradient" id="Gradient_r25pr"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ogehv"]
 gradient = SubResource("Gradient_r25pr")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3csy"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0oh8"]
-bg_color = Color(100, 100, 0.286275, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -52,16 +45,15 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="TextureRect/VBoxContainer"]
+[node name="ProgressBar" type="TextureProgressBar" parent="TextureRect/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_styles/background = SubResource("StyleBoxFlat_f3csy")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m0oh8")
 value = 50.0
 fill_mode = 3
+texture_under = ExtResource("2_hv8h2")
+texture_over = ExtResource("3_het4e")
+texture_progress = ExtResource("4_fentu")
 
 [node name="Epona" type="Label" parent="TextureRect/VBoxContainer"]
 unique_name_in_owner = true

@@ -66,7 +66,7 @@ func _enter_state() -> void:
 	create_noise_location_node(actor.heard_sound_location_buffer)
 	actor.heard_sound_location_buffer = Vector2.ZERO
 	set_physics_process(true)
-	# animator.play("move")
+	animator.play("move")
 	# if actor.velocity == Vector2.ZERO:
 	# 	actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
 

@@ -141,7 +141,6 @@ script = ExtResource("1_g77j2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(1.90735e-06, -1.90735e-06)
-scale = Vector2(1.175, 1)
 sprite_frames = SubResource("SpriteFrames_s8vds")
 animation = &"idle"
 autoplay = "idle"

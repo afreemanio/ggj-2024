@@ -23,16 +23,12 @@ func _update_movement():
 	# Set sprite
 	if movement_direction.x != 0 and movement_direction.y == 0:
 		%AnimatedSprite2D.play("walk_forward")
-		print("Forward")
 	elif movement_direction.y < 0:
 		%AnimatedSprite2D.play("walk_up")
-		print("Up")
 	elif movement_direction.y > 0:
 		%AnimatedSprite2D.play("walk_down")
-		print("Down")
 	else:
 		%AnimatedSprite2D.play("idle")
-		print("Idle")
 		
 	# Flip sprite and cache x-direction
 	if previously_moving_right and movement_direction.x < 0:

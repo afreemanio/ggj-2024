@@ -19,7 +19,7 @@ func _ready() -> void:
 func _enter_state() -> void:
 	print("ENTER STATE CHASE")
 	set_physics_process(true)
-	animator.play("move")
+	animator.play("alert")
 
 
 func _exit_state() -> void:

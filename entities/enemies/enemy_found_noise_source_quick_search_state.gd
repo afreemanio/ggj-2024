@@ -34,6 +34,7 @@ func _ready():
 func _enter_state() -> void:
 	print("ENTER STATE FOUND NOISE QUICK SEARCH")
 	print(animation_player.get_animation_list())
+	animator.play("idle")
 	animation_player.play("search_left_and_right")
 	set_physics_process(true)
 

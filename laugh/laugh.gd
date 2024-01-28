@@ -74,7 +74,7 @@ func find_laugh_audio_array(laugh_percentage):
 	if laugh_percentage == MAX_PERCENT:
 		return bigLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_LARGE:
-		return smallLaughSoundArray
+		return bigLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_MEDIUM:
 		return smallLaughSoundArray
 	elif laugh_percentage > LAUGH_THRESHOLD_SMALL:

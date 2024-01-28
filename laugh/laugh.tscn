@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dubnavv2auhld"]
+[gd_scene load_steps=8 format=3 uid="uid://dubnavv2auhld"]
 
 [ext_resource type="Script" path="res://laugh/laugh.gd" id="1_t21yr"]
+[ext_resource type="Texture2D" uid="uid://2j7rhmexu7al" path="res://icon.svg" id="2_5ddfr"]
+[ext_resource type="Texture2D" uid="uid://bn0rfn6yfup5x" path="res://laugh/light.png" id="3_2jiq3"]
+[ext_resource type="Texture2D" uid="uid://bc38x26n6awyh" path="res://laugh/lightfill.png" id="4_dkefj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lbj8"]
 radius = 200.0
@@ -13,6 +16,11 @@ radius = 400.0
 
 [node name="Laugh" type="Node2D"]
 script = ExtResource("1_t21yr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(3.51419, 2.21864)
+texture = ExtResource("2_5ddfr")
 
 [node name="PercentDebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -43,23 +51,58 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmallLaughArea2D"]
+visible = false
 shape = SubResource("CircleShape2D_7lbj8")
 debug_color = Color(0, 1, 0, 0.196078)
+
+[node name="SmallAreaLight" type="PointLight2D" parent="SmallLaughArea2D"]
+visible = false
+color = Color(0.92549, 0.972549, 0.945098, 0.0588235)
+energy = 20.0
+blend_mode = 1
+texture = ExtResource("3_2jiq3")
+
+[node name="SmallLaughAreaLight" type="Sprite2D" parent="SmallLaughArea2D"]
+modulate = Color(1, 1, 0, 0.266667)
+scale = Vector2(2.675, 2.675)
+texture = ExtResource("4_dkefj")
 
 [node name="MediumLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true
 collision_layer = 8
 collision_mask = 4
 
+[node name="MediumLaughAreaLight" type="Sprite2D" parent="MediumLaughArea2D"]
+modulate = Color(1, 0.6, 0.2, 0.266667)
+scale = Vector2(3.97, 3.97)
+texture = ExtResource("4_dkefj")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MediumLaughArea2D"]
+visible = false
 shape = SubResource("CircleShape2D_uwix2")
 debug_color = Color(1, 0.8, 0, 0.196078)
+
+[node name="MediumAreaLight" type="PointLight2D" parent="MediumLaughArea2D"]
+visible = false
+scale = Vector2(-1.89508, 1.70083)
+color = Color(1, 0.247059, 0.0705882, 1)
+energy = 20.0
+texture = ExtResource("3_2jiq3")
 
 [node name="LargeLaughArea2D" type="Area2D" parent="."]
 unique_name_in_owner = true
 collision_layer = 8
 collision_mask = 4
 
+[node name="LargeLaughAreaLight" type="Sprite2D" parent="LargeLaughArea2D"]
+modulate = Color(1, 0, 0, 0.266667)
+scale = Vector2(5.345, 5.345)
+texture = ExtResource("4_dkefj")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LargeLaughArea2D"]
 shape = SubResource("CircleShape2D_07j1k")
 debug_color = Color(1, 0, 0.027451, 0.196078)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
+energy = 0.7

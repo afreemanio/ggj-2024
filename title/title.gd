@@ -83,7 +83,7 @@ func show_victory() -> void:
 	%Credits.hide()
 	%WinScreen.show()
 	await %TransitionEffect.unfade_black(2)
-	await get_tree().create_timer(8.0).timeout
+	await get_tree().create_timer(5.0).timeout
 	show_credits()
 
 func _on_replay_button_gui_input(event: InputEvent) -> void:
